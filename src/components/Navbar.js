@@ -14,7 +14,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     const response = await signInWithPopup(auth, provider);
     dispatch(setUser(response.user));
   };
@@ -74,7 +75,7 @@ const Navbar = () => {
             ) : (
               <button
                 className="flex flex-row justify-center bg-yt-black py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-3xl hover:bg-yt-light-blue"
-                onClick={handleLogin}
+                onClick={(e) => handleLogin(e)}
               >
                 <VscAccount size={20} />
                 Sign in
