@@ -5,7 +5,7 @@ import { auth, db, timestamp } from "../firebase";
 import { AiFillLike } from "react-icons/ai";
 import { RiShareForwardLine } from "react-icons/ri";
 import { HiDotsHorizontal, HiDownload } from "react-icons/hi";
-import { MdOutlineSort } from "react-icons/md";
+import { MdOutlineSort, MdVerified } from "react-icons/md";
 import { BiDislike } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, setUser } from "../slices/userSlice";
@@ -13,6 +13,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import Comment from "../components/Comment";
 import { CategoryItems } from "../static/Data";
 import RecommendVideo from "../components/RecommendVideo";
+import { signInWithPopup } from "firebase/auth";
+import { provider } from "../firebase";
 
 const Video = () => {
   const [videos, setVideos] = useState([]);
@@ -79,10 +81,14 @@ const Video = () => {
       await addDoc(collection(db, "videos", id, "comments"), commentData);
     }
   };
-
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const response = await signInWithPopup(auth, provider);
+    dispatch(setUser(response.user));
+  };
   return (
     <div className="py-20 pr-9 pl-6 bg-yt-black flex flex-row h-full">
-      <div className="left flex-1">
+      <div className="left flex-1 pr-4 pl-[0.2rem]">
         <div className="flex justify-center">
           <iframe
             src={`https://www.youtube.com/embed/${data?.link}`}
@@ -90,13 +96,13 @@ const Video = () => {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="w-[850px] h-[525px] flex-1 rounded-2xl"
+            className="w-[850px] h-[530px] flex-1 rounded-2xl"
           ></iframe>
         </div>
-        <h2 className="text-yt-white font-semibold mt-3 mb-1 text-lg">
+        <h2 className="text-yt-white font-semibold mt-3 mb-2 text-xl">
           {data?.name}
         </h2>
-        <div className="flex">
+        <div className="flex items-center justify-between">
           <div className="flex items-center">
             <img
               src={data?.logo}
@@ -104,50 +110,53 @@ const Video = () => {
               className="rounded-full w-10 h-10"
             />
             <div className="px-3">
-              <h3 className="text-yt-white font-medium text-base">
+              <h3 className="text-yt-white font-medium text-base flex items-center">
                 {data?.channel && data?.channel.length <= 25
                   ? data?.channel
                   : `${data?.channel && data?.channel.substr(0, 20)}...`}
+                <span className="p-1 text-yt-gray">
+                  <MdVerified />
+                </span>
               </h3>
-              <p className="text-sm text-yt-gray">
+              <p className="text-xs text-yt-gray">
                 {data?.subscribers} subscribers
               </p>
             </div>
-            <button className="bg-yt-white px-3 py-2 rounded-full text-sm font-medium ml-3">
+            <button className="bg-yt-white px-3 py-2 rounded-full text-sm font-semibold ml-3">
               Subscribe
             </button>
-            <div className="flex pl-28">
-              <div className="flex bg-yt-light-black items-center rounded-2xl h-10 mx-1 hover:bg-yt-light-1">
-                <div className="flex px-3 items-center border-r-2 border-r-yt-light-1 cursor-pointer">
-                  <AiFillLike className="text-yt-white text-2xl" />
-                  <p className="text-yt-white pl-2 pr-3 text-sm font-semibold">
-                    300K
-                  </p>
-                </div>
-                <div className="cursor-pointer pl-4 pr-5">
-                  <BiDislike className="text-[22px] font-extralight text-yt-white" />
-                </div>
+          </div>
+          <div className="flex pl-28">
+            <div className="flex bg-yt-light-black items-center rounded-full h-10 mx-1 ">
+              <div className="rounded-l-full flex px-3 h-full items-center border-r-2 border-r-yt-light-1 cursor-pointer hover:bg-yt-light-1">
+                <AiFillLike className="text-yt-white text-2xl" />
+                <p className="text-yt-white pl-2 pr-3 text-sm font-semibold">
+                  300K
+                </p>
               </div>
-              <div className="flex bg-yt-light-black items-center rounded-2xl h-10 mx-1 cursor-pointer hover:bg-yt-light-1">
-                <div className="flex px-3 items-center cursor-pointer">
-                  <RiShareForwardLine className="text-2xl text-yt-white font-thin" />
-                  <p className="text-yt-white pl-2 pr-3 text-sm font-semibold">
-                    Share
-                  </p>
-                </div>
+              <div className="rounded-r-full flex pl-4 pr-5 h-full items-center border-r-yt-light-1 cursor-pointer hover:bg-yt-light-1">
+                <BiDislike className="text-[22px] font-extralight text-yt-white" />
               </div>
-              <div className="flex bg-yt-light-black items-center rounded-2xl h-10 mx-1 cursor-pointer hover:bg-yt-light-1">
-                <div className="flex px-3 items-center cursor-pointer">
-                  <HiDownload className="text-2xl text-yt-white font-thin" />
-                  <p className="text-yt-white pl-2 pr-3 text-sm font-semibold">
-                    Download
-                  </p>
-                </div>
+            </div>
+            <div className="flex bg-yt-light-black items-center rounded-full h-10 mx-1 cursor-pointer hover:bg-yt-light-1">
+              <div className="flex px-3 items-center cursor-pointer">
+                <RiShareForwardLine className="text-2xl text-yt-white font-thin" />
+                <p className="text-yt-white pl-2 pr-3 text-sm font-semibold">
+                  Share
+                </p>
               </div>
+            </div>
+            <div className="flex bg-yt-light-black items-center rounded-full h-10 mx-1 cursor-pointer hover:bg-yt-light-1">
+              <div className="flex px-3 items-center cursor-pointer">
+                <HiDownload className="text-2xl text-yt-white font-thin" />
+                <p className="text-yt-white pl-2 pr-3 text-sm font-semibold">
+                  Download
+                </p>
+              </div>
+            </div>
 
-              <div className="flex bg-yt-light-black hover:bg-yt-light-1 cursor-pointer items-center rounded-full justify-center w-10 h-10 text-yt-white">
-                <HiDotsHorizontal />
-              </div>
+            <div className="flex bg-yt-light-black hover:bg-yt-light-1 cursor-pointer items-center rounded-full justify-center w-10 h-10 text-yt-white">
+              <HiDotsHorizontal />
             </div>
           </div>
         </div>
@@ -190,11 +199,24 @@ const Video = () => {
               />
             </form>
           )}
+
           <div className="mt-4">
             {comments.map((item, i) => (
               <Comment key={i} {...item} />
             ))}
           </div>
+          {!user ? (
+            <div className="text-center p-12">
+              Please{" "}
+              <button
+                className="text-yt-blue hover:underline"
+                onClick={handleLogin}
+              >
+                Sign In
+              </button>{" "}
+              to add your comment
+            </div>
+          ) : null}
         </div>
       </div>
 
