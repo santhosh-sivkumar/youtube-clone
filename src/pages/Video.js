@@ -175,7 +175,7 @@ const Video = () => {
         {/* Comments */}
         <div className="text-yt-white mt-5">
           <div className="flex items-center">
-            <h1>{comments.length} Comments</h1>
+            <h1>{comments?.length} Comments</h1>
             <div className="flex items-center mx-10">
               <MdOutlineSort size={30} className="mx-3" />
               <h5>Sort by</h5>
@@ -212,7 +212,7 @@ const Video = () => {
               Please{" "}
               <button
                 className="text-yt-blue hover:underline"
-                onClick={handleLogin}
+                onClick={(e) => handleLogin(e)}
               >
                 Sign In
               </button>{" "}
@@ -225,7 +225,7 @@ const Video = () => {
       <div className="right px-3 overflow-y-hidden flex-[0.4]">
         <div>
           <div className="flex flex-row px-3 overflow-x-scroll relative scrollbar-hide">
-            {CategoryItems.map((item, i) => (
+            {CategoryItems?.map((item, i) => (
               <h2
                 className="text-yt-white font-normal text-sm py-2 px-4 break-keep whitespace-nowrap bg-yt-light mr-3 cursor-pointer rounded-lg hover:bg-yt-light-1"
                 key={i}
