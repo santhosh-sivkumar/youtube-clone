@@ -22,7 +22,6 @@ const Navbar = () => {
     dispatch(logout());
     await signOut(auth);
   };
-  console.log("user", user);
   return (
     <div className="bg-yt-black h-14 flex items-center pl-4 pr-5 justify-between fixed w-full z-10">
       {/* left section */}

@@ -19,7 +19,7 @@ import { provider } from "../firebase";
 const Video = () => {
   const [videos, setVideos] = useState([]);
   const [comments, setComments] = useState([]);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState("");
 
   const [comment, setComment] = useState("");
 
@@ -86,6 +86,8 @@ const Video = () => {
     const response = await signInWithPopup(auth, provider);
     dispatch(setUser(response.user));
   };
+  console.log(data, "ji");
+
   return (
     <div className="py-20 pr-9 pl-6 bg-yt-black flex flex-row h-full">
       <div className="left flex-1 pr-4 pl-[0.2rem]">
