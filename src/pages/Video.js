@@ -29,19 +29,23 @@ const Video = () => {
 
   useEffect(() => {
     if (id) {
-      const q = query(doc(db, "videos", id));
-      onSnapshot(q, (snapShot) => {
-        setData(snapShot.data());
-      });
-      const commentsQuery = query(collection(db, "videos", id, "comments"));
-      onSnapshot(commentsQuery, (snapShot) => {
-        setComments(
-          snapShot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          }))
-        );
-      });
+      try {
+        const q = query(doc(db, "videos", id));
+        onSnapshot(q, (snapShot) => {
+          setData(snapShot.data());
+        });
+        const commentsQuery = query(collection(db, "videos", id, "comments"));
+        onSnapshot(commentsQuery, (snapShot) => {
+          setComments(
+            snapShot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }))
+          );
+        });
+      } catch (error) {
+        console.error(error + "error");
+      }
     }
   }, [id]);
 
