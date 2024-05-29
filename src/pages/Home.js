@@ -33,6 +33,7 @@ const Home = () => {
         dispatch(setUser(null));
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   return (

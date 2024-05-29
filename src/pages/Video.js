@@ -51,6 +51,7 @@ const Video = () => {
         dispatch(setUser(null));
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -212,13 +213,13 @@ const Video = () => {
         </div>
         <div className="pt-8">
           {videos.map((video, i) => {
-            if (video.id !== id) {
-              return (
-                <Link key={i} to={`/video/${video.id}`}>
-                  <RecommendVideo {...video} />
-                </Link>
-              );
-            }
+            return video.id !== id ? (
+              <Link key={i} to={`/video/${video.id}`}>
+                <RecommendVideo {...video} />
+              </Link>
+            ) : (
+              ""
+            );
           })}
         </div>
       </div>
