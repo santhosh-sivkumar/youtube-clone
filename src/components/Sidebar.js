@@ -3,7 +3,7 @@ import { SideBarItems } from "../static/Data";
 const Sidebar = () => {
   const [active, setActive] = useState("Home");
   return (
-    <div className="yt-scrollbar scrollbar-hide w-60 bg-yt-black h-[calc(100vh-53px)] mt-14 fixed top-0 left-0 text-yt-white p-3 overflow-scroll">
+    <div className="sidebar yt-scrollbar scrollbar-hide w-60 bg-yt-black h-[calc(100vh-53px)] fixed top-14 left-0 text-yt-white p-3 overflow-scroll max-1054:hidden">
       <div className="mb-4">
         {SideBarItems.Top.map((item, index) => {
           return (

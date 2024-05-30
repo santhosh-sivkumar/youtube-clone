@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { addDoc, collection, doc, onSnapshot, query } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  setDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { auth, db, timestamp } from "../firebase";
-import { AiFillLike } from "react-icons/ai";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { RiShareForwardLine } from "react-icons/ri";
 import { HiDotsHorizontal, HiDownload } from "react-icons/hi";
 import { MdOutlineSort, MdVerified } from "react-icons/md";
@@ -16,11 +24,20 @@ import RecommendVideo from "../components/RecommendVideo";
 import { signInWithPopup } from "firebase/auth";
 import { provider } from "../firebase";
 
+// Simple debounce function
+const debounce = (func, delay) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => func(...args), delay);
+  };
+};
 const Video = () => {
   const [videos, setVideos] = useState([]);
   const [comments, setComments] = useState([]);
   const [data, setData] = useState("");
-
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const [comment, setComment] = useState("");
 
   const { id } = useParams();
@@ -33,6 +50,7 @@ const Video = () => {
       onSnapshot(q, (snapShot) => {
         setData(snapShot.data());
       });
+
       const commentsQuery = query(collection(db, "videos", id, "comments"));
       onSnapshot(commentsQuery, (snapShot) => {
         setComments(
@@ -42,8 +60,21 @@ const Video = () => {
           }))
         );
       });
+
+      if (user) {
+        const userLikeDoc = doc(db, "videos", id, "likes", user.uid);
+        onSnapshot(userLikeDoc, (doc) => {
+          setLiked(doc.exists());
+        });
+      }
+      const likeCountRef = doc(db, "videos", id);
+      onSnapshot(likeCountRef, (doc) => {
+        if (doc.exists()) {
+          setLikeCount(doc.data().likeCount || 0);
+        }
+      });
     }
-  }, [id]);
+  }, [id, user]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -86,6 +117,26 @@ const Video = () => {
     const response = await signInWithPopup(auth, provider);
     dispatch(setUser(response.user));
   };
+  const toggleLike = async () => {
+    if (!user) {
+      return alert("Sign in to make your opinion count.");
+    } // Optionally, prompt login
+    const userLikeDoc = doc(db, "videos", id, "likes", user.uid);
+    const videoDoc = doc(db, "videos", id);
+
+    if (liked) {
+      await deleteDoc(userLikeDoc);
+      setLiked(false);
+      setLikeCount((prev) => prev - 1);
+      await setDoc(videoDoc, { likeCount: likeCount - 1 }, { merge: true });
+    } else {
+      await setDoc(userLikeDoc, { liked: true });
+      setLiked(true);
+      setLikeCount((prev) => prev + 1);
+      await setDoc(videoDoc, { likeCount: likeCount + 1 }, { merge: true });
+    }
+  };
+  const debouncedToggleLike = debounce(toggleLike, 1000);
 
   return (
     <div className="py-20 pr-9 pl-6 bg-yt-black flex flex-row h-full">
@@ -129,10 +180,17 @@ const Video = () => {
           </div>
           <div className="flex pl-28">
             <div className="flex bg-yt-light-black items-center rounded-full h-10 mx-1 ">
-              <div className="rounded-l-full flex px-3 h-full items-center border-r-2 border-r-yt-light-1 cursor-pointer hover:bg-yt-light-1">
-                <AiFillLike className="text-yt-white text-2xl" />
+              <div
+                onClick={debouncedToggleLike} // Use the debouncedToggleLike function
+                className="rounded-l-full flex px-3 h-full items-center border-r-2 border-r-yt-light-1 cursor-pointer hover:bg-yt-light-1"
+              >
+                {liked ? (
+                  <AiFillLike className="text-yt-white text-2xl" />
+                ) : (
+                  <AiOutlineLike className="text-yt-white text-2xl" />
+                )}
                 <p className="text-yt-white pl-2 pr-3 text-sm font-semibold">
-                  300K
+                  {likeCount}
                 </p>
               </div>
               <div className="rounded-r-full flex pl-4 pr-5 h-full items-center border-r-yt-light-1 cursor-pointer hover:bg-yt-light-1">

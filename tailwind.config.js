@@ -15,6 +15,11 @@ module.exports = {
       "yt-border": "rgba(255,255,255,0.2)",
     },
     extend: {
+      screens: {
+        "max-450": { max: "450px" },
+        "max-791": { max: "791px" },
+        "max-1054": { max: "1054px" },
+      },
       gridTemplateColumns: {
         yt: "repeat(auto-fit,minmax(250px,1fr))",
       },
