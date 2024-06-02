@@ -10,9 +10,16 @@ import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, provider } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, getUser, logout } from "../slices/userSlice";
+import {
+  setSearchQuery,
+  filterVideosByName,
+  setVideos,
+} from "../slices/videoSlice";
+
 const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const { searchQuery, filteredVideos } = useSelector((state) => state.videos);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,6 +29,18 @@ const Navbar = () => {
   const handleLogout = async () => {
     dispatch(logout());
     await signOut(auth);
+  };
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    dispatch(setSearchQuery(query)); // Dispatch action to set search query in Redux state
+
+    // Dispatch action to filter videos only when search query is not empty
+    if (query.trim() !== "") {
+      dispatch(filterVideosByName());
+    } else if (searchQuery.trim() !== "") {
+      // Reset filtered videos to all videos only when search query changes from non-empty to empty
+      dispatch(setVideos(filteredVideos));
+    }
   };
   return (
     <div className="bg-yt-black h-14 flex items-center pl-4 pr-5 justify-between fixed w-full z-10">
@@ -43,6 +62,8 @@ const Navbar = () => {
             type="text"
             placeholder="Search"
             className="w-full bg-yt-black h-6 ml-6 text-yt-white text-start focus:outline-none pl-4"
+            value={searchQuery}
+            onChange={handleSearch}
           />
           <button className=" w-16 h-10 bg-yt-light-black px-2 py-0.5 rounded-r-3xl border-1-2 border-yt-light-black">
             <HiMagnifyingGlass

@@ -1,29 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import { CategoryItems } from "../static/Data";
-import { collection, onSnapshot, query } from "firebase/firestore";
-import { auth, db } from "../firebase";
+import { auth } from "../firebase";
 import { Link } from "react-router-dom";
 import Video from "../components/Video";
 import { onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../slices/userSlice";
-
+import { fetchVideos } from "../slices/videoSlice";
+import { TailSpin } from "react-loader-spinner";
+import { setVideos, filterByCategory } from "../slices/videoSlice";
 const Home = () => {
-  const [videos, setVideos] = useState([]);
   const dispatch = useDispatch();
+  const { status, videos, error, allVideos } = useSelector(
+    (state) => state.videos
+  );
 
   useEffect(() => {
-    const q = query(collection(db, "videos"));
-    onSnapshot(q, (snapShot) => {
-      setVideos(
-        snapShot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }))
-      );
-    });
-  }, []);
+    dispatch(fetchVideos());
+  }, [dispatch]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -35,6 +30,15 @@ const Home = () => {
     });
     // eslint-disable-next-line
   }, []);
+  const handleFilter = (item) => {
+    if (item !== "All") {
+      item = item === "Movies" ? "Movie" : item;
+      dispatch(filterByCategory(item));
+    } else {
+      console.log(allVideos, "from home");
+      dispatch(setVideos(allVideos));
+    }
+  };
 
   return (
     <>
@@ -45,6 +49,7 @@ const Home = () => {
             <h2
               className="text-yt-white font-normal text-sm py-2 px-4 break-keep whitespace-nowrap bg-yt-light mr-3 cursor-pointer rounded-lg hover:bg-yt-light-1"
               key={i}
+              onClick={() => handleFilter(item)}
             >
               {item}
             </h2>
@@ -52,8 +57,33 @@ const Home = () => {
         </div>
 
         <div className="pt-12 px-5 grid grid-cols-yt gap-x-3 gap-y-8">
-          {videos.length === 0 ? (
-            <div className="h-[86vh]"></div>
+          {videos?.length === 0 ? (
+            <div className="h-[86vh]">
+              <div className="h-full flex items-center justify-center">
+                {status !== "loading" ? (
+                  <p className="p-3 text-yt-white absolute top-72">
+                    No videos found.
+                  </p>
+                ) : (
+                  ""
+                )}
+                {status === "loading" && (
+                  <span className="absolute top-72">
+                    <TailSpin
+                      visible={true}
+                      height="40"
+                      width="40"
+                      color="#fff"
+                      ariaLabel="tail-spin-loading"
+                      radius="1"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                  </span>
+                )}
+                {status === "failed" && <p className="text-yt-red">{error}</p>}
+              </div>
+            </div>
           ) : (
             videos.map((video, i) => (
               <Link to={`/video/${video.id}`} key={video.id}>
