@@ -1,18 +1,12 @@
-// videoSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
-// Local variable to store received videos
 
-// Thunk to subscribe to videos from Firestore
 export const fetchVideos = createAsyncThunk(
   "videos/fetchVideos",
   async (_, { dispatch }) => {
     try {
-      // Set loading state
       dispatch(setLoading());
-
-      // Fetch data from Firestore
       const q = query(collection(db, "videos"));
       onSnapshot(q, (snapShot) => {
         const Videos = snapShot.docs.map((doc) => ({
@@ -20,16 +14,14 @@ export const fetchVideos = createAsyncThunk(
           id: doc.id,
         }));
         dispatch(setVideos(Videos));
-        dispatch(setAllVideos(Videos)); // Dispatch success action and pass fetched data
+        dispatch(setAllVideos(Videos));
       });
     } catch (error) {
-      // Dispatch failure action and pass error message
       dispatch(setError(error.message));
     }
   }
 );
 
-// Slice for managing videos state
 const videoSlice = createSlice({
   name: "videos",
   initialState: {
@@ -39,10 +31,15 @@ const videoSlice = createSlice({
     status: "idle",
     error: null,
     searchQuery: "",
+    showModel: false,
+    formData: [],
   },
   reducers: {
     setAllVideos: (state, action) => {
       state.allVideos = action.payload;
+    },
+    setFormData: (state, action) => {
+      state.formData = action.payload;
     },
     setVideos: (state, action) => {
       state.videos = action.payload;
@@ -73,6 +70,10 @@ const videoSlice = createSlice({
         video.name.toLowerCase().includes(state.searchQuery.toLowerCase())
       );
     },
+    // Action to toggle edit mode
+    toggleShowModel: (state, action) => {
+      state.showModel = action.payload;
+    },
   },
 });
 
@@ -84,5 +85,8 @@ export const {
   setSearchQuery,
   filterByCategory,
   filterVideosByName,
+  toggleShowModel,
+  setFormData, // Export the toggleShowModel action
 } = videoSlice.actions;
+
 export default videoSlice.reducer;

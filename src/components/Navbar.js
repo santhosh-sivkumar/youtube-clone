@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { HiOutlineBars3, HiMagnifyingGlass } from "react-icons/hi2";
 import { FaRegBell } from "react-icons/fa";
 import { BiVideoPlus } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import logo from "../assets/YouTube-Logo.png";
+import studioLogo from "../assets/yt_studio_logo_white.svg";
+
 import { MdMic } from "react-icons/md";
 import { VscAccount } from "react-icons/vsc";
-import { signInWithPopup, signOut } from "firebase/auth";
+import { onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { auth, provider } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, getUser, logout } from "../slices/userSlice";
@@ -14,12 +16,45 @@ import {
   setSearchQuery,
   filterVideosByName,
   setVideos,
+  fetchVideos,
 } from "../slices/videoSlice";
+import { useLocation, useNavigate } from "react-router-dom";
+import NewVideoFormModal from "./NewVideoFormModal";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
   const user = useSelector(getUser);
   const { searchQuery, filteredVideos } = useSelector((state) => state.videos);
+
+  useEffect(() => {
+    dispatch(fetchVideos());
+  }, [dispatch]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(setUser(user));
+      } else {
+        dispatch(setUser(null));
+      }
+    });
+    // eslint-disable-next-line
+  }, []);
+
+  const handleClick = () => {
+    if (location.pathname === "/Channel") {
+      setShowPopup(true);
+    } else {
+      navigate("/Channel");
+    }
+  };
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -43,7 +78,11 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="bg-yt-black h-14 flex items-center pl-4 pr-5 justify-between fixed w-full z-10">
+    <div
+      className={`navbar ${
+        location.pathname !== "/Channel" ? "bg-yt-black" : "bg-[#282828]"
+      } pt-[20px] pr-[24px] pb-[12px] h-14 flex items-center pl-[16px] justify-between fixed w-full z-10`}
+    >
       {/* left section */}
       <div className="flex justify-start items-center w-1/4">
         <div className="text-yt-white p-2 w-10 text-2xl text-center hover:bg-yt-light-black rounded-full cursor-pointer">
@@ -51,40 +90,87 @@ const Navbar = () => {
         </div>
         <div className="pl-[0.5rem] w-32">
           <Link to="/">
-            <img src={logo} alt="" className="object-contain w-[87.8%]" />
+            <img
+              src={location.pathname === "/Channel" ? studioLogo : logo}
+              alt=""
+              className="object-contain w-[87.8%]"
+            />
           </Link>
         </div>
-      </div>
+      </div>{" "}
       {/* middle section */}
-      <div className="h-10 flex flex-row items-center w-2/4">
-        <div className="w-full bg-yt-black flex border border-yt-light-black items-center rounded-3xl h-10">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full bg-yt-black h-6 ml-6 text-yt-white text-start focus:outline-none pl-4"
-            value={searchQuery}
-            onChange={handleSearch}
-          />
-          <button className=" w-16 h-10 bg-yt-light-black px-2 py-0.5 rounded-r-3xl border-1-2 border-yt-light-black">
-            <HiMagnifyingGlass
-              size={22}
-              className="text-yt-white inline-block text-center font-thin"
+      {location.pathname !== "/Channel" ? (
+        <div className="h-10 flex flex-row items-center w-2/4">
+          <div className="w-full bg-yt-black flex border border-yt-light-black items-center rounded-3xl h-10">
+            <input
+              type="text"
+              placeholder="Search"
+              className="w-full bg-yt-black h-6 ml-6 text-yt-white text-start focus:outline-none "
+              value={searchQuery}
+              onChange={handleSearch}
             />
-          </button>
+            <button className=" w-16 h-10 bg-yt-light-black px-2 py-0.5 rounded-r-3xl border-1-2 border-yt-light-black">
+              <HiMagnifyingGlass
+                size={22}
+                className="text-yt-white inline-block text-center font-thin"
+              />
+            </button>
+          </div>
+          <div className=" text-yt-white bg-yt-light w-10 h-10 items-center flex justify-center rounded-full ml-4 hover:bg-yt-light-black cursor-pointer">
+            <MdMic className="text-center" size={23} />
+          </div>
         </div>
-        <div className=" text-yt-white bg-yt-light w-10 h-10 items-center flex justify-center rounded-full ml-4 hover:bg-yt-light-black cursor-pointer">
-          <MdMic className="text-center" size={23} />
+      ) : (
+        <div className="h-10 flex flex-row items-center w-2/4">
+          <div className="w-full flex text-[#576772] border border-[#606060] items-center rounded-[5px] h-10">
+            <input
+              type="text"
+              placeholder="Search across your channel"
+              className="w-full font-bold bg-[#282828] h-6 ml-6 text-yt-white text-start focus:outline-none "
+              value={searchQuery}
+              onChange={handleSearch}
+            />
+          </div>
         </div>
-      </div>
+      )}
       {/* right section */}
       <div className="flex items-center justify-end w-1/5">
         <div className="flex flex-row items-center">
-          <div className="mr-2 p-2 w-10 hover:bg-yt-light-black rounded-full cursor-pointer">
-            <BiVideoPlus size={25} className="text-yt-white text-center" />
-          </div>
-          <div className="mr-2 p-2 w-9 hover:bg-yt-light-black rounded-full cursor-pointer">
-            <FaRegBell size={20} className="text-yt-white text-center" />
-          </div>
+          {location.pathname === "/Channel" ? (
+            <button
+              className="flex flex-row text-yt-white justify-center py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-[0.2rem] hover:bg-yt-light-blue"
+              onClick={handleClick}
+            >
+              <BiVideoPlus
+                className="text-[#ff4e45] cursor-pointer"
+                size={25}
+              />
+              CREATE
+            </button>
+          ) : (
+            <div className="mr-2 p-2 w-10 hover:bg-yt-light-black rounded-full cursor-pointer">
+              <Link to={`/Channel`}>
+                <BiVideoPlus
+                  to="/VideoForm"
+                  size={25}
+                  className="text-yt-white text-center"
+                />
+              </Link>
+            </div>
+          )}
+          {/* Popup Window */}
+          {showPopup && (
+            <NewVideoFormModal togglePopup={togglePopup} isNew={true} />
+          )}{" "}
+          {/* Bell icon */}
+          {location.pathname !== "/Channel" ? (
+            <div className="mr-2 p-2 w-9 hover:bg-yt-light-black rounded-full cursor-pointer">
+              <FaRegBell size={20} className="text-yt-white text-center" />
+            </div>
+          ) : (
+            ""
+          )}
+          {/* Profile IMG */}
           <div className="mx-3 items-center cursor-pointer text-yt-blue">
             {user ? (
               <img
