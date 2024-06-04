@@ -121,7 +121,7 @@ const Navbar = () => {
   };
   return (
     <div
-      className={`navbar ${
+      className={`navbar z-20 ${
         location.pathname !== "/YoutubeStudio" ? "bg-yt-black" : "bg-[#282828]"
       }  h-14 flex items-center pr-[10px] pl-[6px] justify-between fixed w-full z-10`}
     >
@@ -240,12 +240,12 @@ const Navbar = () => {
                 src={user.photoURL}
                 alt={user.displayName}
                 onClick={handleLogout}
-                className="object-contain rounded-full cursor-pointer w-8 h-8"
+                className=" object-cover rounded-full cursor-pointer w-8 h-8"
               />
             ) : (
               <SignInComponent className=" max-791:text-xs max-791:px-[0.5rem] flex flex-row justify-center bg-yt-black py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-3xl hover:bg-yt-light-blue">
                 <VscAccount size={20} />
-                <span className="max-791:hidden">Sign In</span>
+                <span className="max-1054:hidden">Sign In</span>
               </SignInComponent>
             )}
           </div>

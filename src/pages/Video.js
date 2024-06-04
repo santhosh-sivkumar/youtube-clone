@@ -23,6 +23,7 @@ import { CategoryItems } from "../static/Data";
 import RecommendVideo from "../components/video/RecommendVideo";
 import SignInComponent from "../components/helper/SignInComponent";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import CategoryList from "../components/video/CategoryList";
 
 // Simple debounce function
 const debounce = (func, delay) => {
@@ -154,19 +155,19 @@ const Video = () => {
         </h2>
         <div className="flex max-791:flex-col flex-row max-791:gap-5 max-791:items-start  items-center justify-evenly">
           {/* channel name and subscribe button */}
-          <div className="flex items-center  lg:mb-0 w-full">
+          <div className="flex items-center lg:mb-0 w-full flex-wrap">
             <img
               src={data?.logo}
               alt={data?.channel}
-              className="rounded-full w-10 h-10"
+              className="rounded-full w-8 h-8 mb-1 sm:mb-0"
             />
-            <div className="px-3">
-              <h3 className="text-[#fff] font-medium text-base flex items-center">
+            <div className="px-2">
+              <h3 className="text-[#fff] font-medium text-sm flex items-center">
                 {data?.channel && data?.channel.length <= 25
                   ? data?.channel
                   : `${data?.channel && data?.channel.substr(0, 20)}...`}
                 <span className="p-1 text-[#909090]">
-                  <MdVerified />
+                  <MdVerified className="text-sm" />
                 </span>
               </h3>
               <p className="text-xs text-[#909090]">
@@ -175,63 +176,60 @@ const Video = () => {
             </div>
             <button
               title="Subscribe"
-              className="bg-[#fff] px-3 py-2 rounded-full text-sm font-semibold ml-3"
+              className="bg-[#fff] px-2 py-1 rounded-full text-xs font-semibold ml-2"
             >
               Subscribe
             </button>
           </div>
+
           {/* Like share download and options icon */}
-          <div className="flex  items-center gap-1 w-full">
-            <div className="flex bg-[#2a2a2a] items-center rounded-full h-10">
+          <div className="flex flex-wrap items-center gap-1 w-full">
+            <div className="flex bg-[#2a2a2a] items-center rounded-full h-8 mb-1 sm:mb-0">
               <div
                 onClick={debouncedToggleLike}
-                className="rounded-l-full flex px-3 h-full items-center border-r-2 border-r-[#404040] cursor-pointer hover:bg-[#404040]"
+                className="rounded-l-full flex px-2 h-full items-center border-r-2 border-r-[#404040] cursor-pointer hover:bg-[#404040]"
               >
                 {liked ? (
-                  <AiFillLike className="text-[#fff] text-2xl" />
+                  <AiFillLike className="text-[#fff] text-xl" />
                 ) : (
-                  <AiOutlineLike className="text-[#fff] text-2xl" />
+                  <AiOutlineLike className="text-[#fff] text-xl" />
                 )}
-                <p className="text-[#fff] pl-2 pr-3 text-sm font-semibold">
+                <p className="text-[#fff] pl-1 pr-2 text-xs font-semibold">
                   {likeCount}
                 </p>
               </div>
-              <div className="rounded-r-full flex pl-4 pr-5 h-full items-center border-r-[#404040] cursor-pointer hover:bg-[#404040]">
-                <BiDislike className="text-[22px] font-extralight text-[#fff]" />
+              <div className="rounded-r-full flex pl-3 pr-4 h-full items-center border-r-[#404040] cursor-pointer hover:bg-[#404040]">
+                <BiDislike className="text-[20px] font-extralight text-[#fff]" />
               </div>
             </div>
-            <div className="flex bg-[#2a2a2a] items-center rounded-full h-10 cursor-pointer hover:bg-[#404040]">
+            <div className="flex bg-[#2a2a2a] items-center rounded-full h-8 mb-1 sm:mb-0 cursor-pointer hover:bg-[#404040]">
               <div
                 title="Share"
-                className="flex px-3 items-center cursor-pointer"
+                className="flex px-2 items-center cursor-pointer"
               >
-                <RiShareForwardLine className="text-2xl text-[#fff] font-thin" />
-                <p className="text-[#fff] pl-2 pr-3 text-sm font-semibold">
+                <RiShareForwardLine className="text-xl text-[#fff] font-thin" />
+                <p className="text-[#fff] pl-1 pr-2 text-xs font-semibold">
                   Share
                 </p>
               </div>
             </div>
-            <div className="flex bg-[#2a2a2a] items-center rounded-full h-10 cursor-pointer hover:bg-[#404040]">
+            <div className="flex bg-[#2a2a2a] items-center rounded-full h-8 mb-1 sm:mb-0 cursor-pointer hover:bg-[#404040]">
               <div
                 title="Download"
-                className="flex px-3 items-center cursor-pointer"
+                className="flex px-2 items-center cursor-pointer"
               >
                 <HiDownload
                   title="Download"
-                  className="text-2xl text-[#fff] font-thin"
+                  className="text-xl text-[#fff] font-thin"
                 />
-                <p className="text-[#fff] pl-2 pr-3 text-sm font-semibold">
+                <p className="text-[#fff] pl-1 pr-2 text-xs font-semibold">
                   Download
                 </p>
               </div>
             </div>
-
-            <div className="flex bg-[#2a2a2a] hover:bg-[#404040] cursor-pointer items-center rounded-full justify-center w-10 h-10 text-[#fff]">
-              <div
-                title="Options"
-                className="flex px-3 items-center cursor-pointer"
-              >
-                <HiDotsHorizontal />
+            <div className="flex bg-[#2a2a2a] hover:bg-[#404040] cursor-pointer items-center rounded-full justify-center w-8 h-8 text-[#fff]">
+              <div title="Options" className="flex items-center cursor-pointer">
+                <HiDotsHorizontal className="text-xl" />
               </div>
             </div>
           </div>
@@ -309,18 +307,7 @@ const Video = () => {
 
       <div className="lg:flex-[0.4] lg:px-3 max-791:mt-[-1.5rem] lg:overflow-y-hidden mt-5 lg:mt-0">
         <div className="max-791:hidden flex flex-row lg:flex-col lg:overflow-x-hidden relative">
-          <div
-            className={`lg:flex flex flex-row gap-1 relative scrollbar-hide`}
-          >
-            {CategoryItems?.map((item, i) => (
-              <h2
-                className="text-[#fff] font-normal text-sm py-2 px-4 break-keep whitespace-nowrap bg-[#3a3a3a] mr-3 lg:mr-0 cursor-pointer rounded-lg hover:bg-[#505050]"
-                key={i}
-              >
-                {item}
-              </h2>
-            ))}
-          </div>
+          <CategoryList CategoryItems={CategoryItems} />
         </div>
         <div className={`lg:block pt-8`}>
           {videos?.map((video, i) => {

@@ -3,7 +3,7 @@ import { MdVerified } from "react-icons/md";
 
 const RecommendVideo = ({ thumbnail, name, channel, views, uploadTime }) => {
   return (
-    <div className="text-yt-white flex cursor-pointer">
+    <div className="text-yt-white flex cursor-pointer mb-1">
       <img src={thumbnail} alt="" className="h-32 w-52 rounded-[10px] p-1" />
       <div className="pl-2">
         <h2 className="text-xs font-medium">
