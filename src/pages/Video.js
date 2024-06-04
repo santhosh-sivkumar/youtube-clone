@@ -23,7 +23,7 @@ import { CategoryItems } from "../static/Data";
 import RecommendVideo from "../components/video/RecommendVideo";
 import SignInComponent from "../components/helper/SignInComponent";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import CategoryList from "../components/video/CategoryList";
+import HorizontalBar from "../components/video/HorizontalBar";
 
 // Simple debounce function
 const debounce = (func, delay) => {
@@ -138,8 +138,8 @@ const Video = () => {
   const debouncedToggleLike = debounce(toggleLike, 1000);
 
   return (
-    <div className="py-20 px-6 bg-[#000] flex flex-col lg:flex-row h-full">
-      <div className="lg:flex-1 lg:pr-4">
+    <div className="py-20 px-6 flex flex-col lg:flex-row h-full">
+      <div className="lg:flex-1 lg:pr-4 lg:pl-4">
         <div className="flex justify-center">
           <iframe
             src={`https://www.youtube.com/embed/${data?.link}`}
@@ -147,19 +147,19 @@ const Video = () => {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:w-[850px] lg:h-[530px] rounded-2xl"
+            className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:w-[100%] lg:h-[510px] rounded-[0.7rem]"
           ></iframe>
         </div>
         <h2 className="text-[#fff] font-semibold mt-3 mb-2 text-xl">
           {data?.name}
         </h2>
-        <div className="flex max-791:flex-col flex-row max-791:gap-5 max-791:items-start  items-center justify-evenly">
+        <div className="flex max-791:flex-col p-2 flex-row max-791:gap-5 max-791:items-start  items-center justify-between">
           {/* channel name and subscribe button */}
-          <div className="flex items-center lg:mb-0 w-full flex-wrap">
+          <div className="flex items-center lg:mb-0 flex-wrap">
             <img
               src={data?.logo}
               alt={data?.channel}
-              className="rounded-full w-8 h-8 mb-1 sm:mb-0"
+              className="h-[3rem]  rounded-full p-1"
             />
             <div className="px-2">
               <h3 className="text-[#fff] font-medium text-sm flex items-center">
@@ -183,7 +183,7 @@ const Video = () => {
           </div>
 
           {/* Like share download and options icon */}
-          <div className="flex flex-wrap items-center gap-1 w-full">
+          <div className="flex flex-wrap items-center  gap-1">
             <div className="flex bg-[#2a2a2a] items-center rounded-full h-8 mb-1 sm:mb-0">
               <div
                 onClick={debouncedToggleLike}
@@ -235,9 +235,9 @@ const Video = () => {
           </div>
         </div>
         {/* Description */}
-        <div className="max-w-4xl bg-[#2a2a2a] mt-4 rounded-[0.3rem] text-sm p-3 text-[#fff]">
-          <div className="flex">
-            <p className="font-medium pr-3">
+        <div className=" bg-[#2a2a2a] mt-4 rounded-[0.3rem] text-sm p-3 text-[#fff]">
+          <div className="flex flex-col md:flex-row md:items-center">
+            <p className="font-medium pr-3 mb-2 md:mb-0">
               {data?.views}
               <span className="pl-1 text-xs">Views</span>
             </p>
@@ -245,6 +245,7 @@ const Video = () => {
           </div>
           <span className="text-center font-medium">{data?.description}</span>
         </div>
+
         {/* Comments */}
         <div className="text-[#fff] mt-5">
           <div
@@ -305,9 +306,9 @@ const Video = () => {
         </div>
       </div>
 
-      <div className="lg:flex-[0.4] lg:px-3 max-791:mt-[-1.5rem] lg:overflow-y-hidden mt-5 lg:mt-0">
+      <div className="lg:flex-[0.47] lg:px-3 max-791:mt-[-1.5rem] lg:overflow-y-hidden mt-5 lg:mt-0">
         <div className="max-791:hidden flex flex-row lg:flex-col lg:overflow-x-hidden relative">
-          <CategoryList CategoryItems={CategoryItems} />
+          <HorizontalBar CategoryItems={CategoryItems} />
         </div>
         <div className={`lg:block pt-8`}>
           {videos?.map((video, i) => {

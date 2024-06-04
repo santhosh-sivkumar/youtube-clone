@@ -1,12 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { filterByCategory, setVideos } from "../../slices/videoSlice";
 
-const CategoryList = ({ CategoryItems }) => {
+const HorizontalBar = ({ CategoryItems }) => {
   const containerRef = useRef(null);
+  const dispatch = useDispatch();
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
-
+  const { allVideos } = useSelector((state) => state.videos);
   const checkScrollPosition = () => {
     const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
     setShowLeftArrow(scrollLeft > 0);
@@ -31,10 +34,15 @@ const CategoryList = ({ CategoryItems }) => {
     };
   }, []);
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+  const handleFilter = (item) => {
+    setSelectedCategory(item);
+    if (item !== "All") {
+      item = item === "Movies" ? "Movie" : item;
+      dispatch(filterByCategory(item));
+    } else {
+      dispatch(setVideos(allVideos));
+    }
   };
-
   return (
     <div className="relative w-full">
       {/* Left Scroll Button */}
@@ -58,18 +66,18 @@ const CategoryList = ({ CategoryItems }) => {
       )}
 
       <div
-        className="lg:flex flex flex-row gap-1 overflow-x-auto scrollbar-hide relative w-full"
+        className="lg:flex flex flex-row gap-2 overflow-x-auto scrollbar-hide relative w-full justify-evenly "
         ref={containerRef}
       >
         {CategoryItems?.map((item, i) => (
           <button
-            className={`text-[#fff] font-normal text-sm py-2 px-4 break-keep whitespace-nowrap rounded-lg mr-3 lg:mr-0 cursor-pointer ${
+            className={`text-[#fff]  text-sm py-2 px-4 break-keep whitespace-nowrap rounded-lg mr-3 lg:mr-0 cursor-pointer ${
               selectedCategory === item
-                ? "bg-[#6d6d6d]"
-                : "bg-[#8888884c] hover:bg-[#6d6d6d]"
+                ? "bg-[#fff] text-yt-black font-semibold"
+                : "bg-[#8888884c] hover:bg-[#6d6d6d] font-bold"
             }`}
             key={i}
-            onClick={() => handleCategoryClick(item)}
+            onClick={() => handleFilter(item)}
           >
             {item}
           </button>
@@ -89,4 +97,4 @@ const CategoryList = ({ CategoryItems }) => {
   );
 };
 
-export default CategoryList;
+export default HorizontalBar;
