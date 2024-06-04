@@ -5,8 +5,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { CgClose } from "react-icons/cg";
 import { GiNextButton, GiPreviousButton } from "react-icons/gi";
 import { BiSave } from "react-icons/bi";
-import Form from "../inputFields/Form";
-import { formFieldsStep1, formFieldsStep2 } from "../inputFields/formFields";
+import Form from "../helper/Form";
+import { formFieldsStep1, formFieldsStep2 } from "../../static/FormFields";
 import { getUser } from "../../slices/userSlice";
 import { useSelector } from "react-redux";
 
@@ -129,6 +129,7 @@ const AddVideo = ({ togglePopup, isNew }) => {
         <div className="flex flex-row text-yt-white m-0 pb-3 justify-between items-center border-b-[1px] border-[#3e3e3e] ">
           <h2 className="text-xl font-bold">Add Video Details</h2>
           <button
+            title="Close"
             onClick={togglePopup}
             className="hover:text-yt-blue font-bold py-2 px-4 "
           >
@@ -156,6 +157,7 @@ const AddVideo = ({ togglePopup, isNew }) => {
             {step > 1 && (
               <div className="flex justify-start">
                 <button
+                  title="Previous"
                   onClick={prevStep}
                   type="button"
                   className="flex flex-row text-yt-white justify-center py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-[0.2rem] hover:bg-yt-light-blue"
@@ -168,6 +170,7 @@ const AddVideo = ({ togglePopup, isNew }) => {
             {step < 2 ? (
               <div className="flex justify-end ">
                 <button
+                  title="Next"
                   className="flex flex-row text-yt-white justify-center py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-[0.2rem] hover:bg-yt-light-blue"
                   onClick={nextStep}
                   type="button"
@@ -184,9 +187,17 @@ const AddVideo = ({ togglePopup, isNew }) => {
                   className="flex flex-row text-yt-white justify-center py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-[0.2rem] hover:bg-yt-light-blue"
                 >
                   {initialFormData ? (
-                    <FaSave className="text-[#ff4e45] " size={20} />
+                    <FaSave
+                      title="Save Changes"
+                      className="text-[#ff4e45] "
+                      size={20}
+                    />
                   ) : (
-                    <BiSave className="text-[#ff4e45] " size={20} />
+                    <BiSave
+                      title={"Submit"}
+                      className="text-[#ff4e45] "
+                      size={20}
+                    />
                   )}
                   {initialFormData ? "Save Changes" : "Submit"}
                 </button>

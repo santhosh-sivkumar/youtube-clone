@@ -43,6 +43,7 @@ const TableRows = ({ handleViewClick, handleDeleteClick, handleEditClick }) => {
           <td className="p-3 w-24 text-center">{video.views}</td>
           <td className="p-3 w-24 text-center">
             <button
+              title="View"
               onClick={() => handleViewClick(video)}
               className="text-[rgb(92,231,92)] hover:text-[rgb(59,255,59)] transition-colors duration-300"
             >
@@ -51,6 +52,7 @@ const TableRows = ({ handleViewClick, handleDeleteClick, handleEditClick }) => {
           </td>
           <td className="p-3 w-24 text-center">
             <button
+              title="Edit"
               onClick={() => handleEditClick(video)}
               className="text-[rgb(213,255,59)] hover:text-[rgba(204,255,116,0.85)] transition-colors duration-300"
             >
@@ -59,6 +61,7 @@ const TableRows = ({ handleViewClick, handleDeleteClick, handleEditClick }) => {
           </td>
           <td className="p-3 w-24 text-center">
             <button
+              title="Delete"
               onClick={() => handleDeleteClick(video)}
               className="text-[#ff0e0e] hover:text-[#ff0000] transition-colors duration-300"
             >

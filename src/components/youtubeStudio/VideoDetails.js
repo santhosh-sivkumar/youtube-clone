@@ -19,6 +19,7 @@ const VideoDetails = ({ video, onClose }) => {
           <div className="flex items-center mb-4 justify-between border-b-[1px] border-[#3e3e3e] pb-4">
             <p className="text-yt-white text-xl">Video Details</p>
             <button
+              title="Close"
               onClick={onClose}
               className="flex items-center text-yt-white hover:text-yt-blue transition-colors duration-300"
             >

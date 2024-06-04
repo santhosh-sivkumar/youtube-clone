@@ -21,7 +21,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import Comment from "../components/video/Comment";
 import { CategoryItems } from "../static/Data";
 import RecommendVideo from "../components/video/RecommendVideo";
-import SignInComponent from "../components/SignInComponent";
+import SignInComponent from "../components/helper/SignInComponent";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 // Simple debounce function
 const debounce = (func, delay) => {
@@ -31,6 +32,7 @@ const debounce = (func, delay) => {
     timer = setTimeout(() => func(...args), delay);
   };
 };
+
 const Video = () => {
   const [videos, setVideos] = useState([]);
   const [comments, setComments] = useState([]);
@@ -38,6 +40,7 @@ const Video = () => {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [comment, setComment] = useState("");
+  const [showRecommended, setShowRecommended] = useState(false);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -134,8 +137,8 @@ const Video = () => {
   const debouncedToggleLike = debounce(toggleLike, 1000);
 
   return (
-    <div className="py-20 pr-9 pl-6 bg-yt-black flex flex-row h-full">
-      <div className="left flex-1 pr-4 pl-[0.2rem]">
+    <div className="py-20 px-6 bg-[#000] flex flex-col lg:flex-row h-full">
+      <div className="lg:flex-1 lg:pr-4">
         <div className="flex justify-center">
           <iframe
             src={`https://www.youtube.com/embed/${data?.link}`}
@@ -143,78 +146,98 @@ const Video = () => {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="w-[850px] h-[530px] flex-1 rounded-2xl"
+            className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:w-[850px] lg:h-[530px] rounded-2xl"
           ></iframe>
         </div>
-        <h2 className="text-yt-white font-semibold mt-3 mb-2 text-xl">
+        <h2 className="text-[#fff] font-semibold mt-3 mb-2 text-xl">
           {data?.name}
         </h2>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
+        <div className="flex max-791:flex-col flex-row max-791:gap-5 max-791:items-start  items-center justify-evenly">
+          {/* channel name and subscribe button */}
+          <div className="flex items-center  lg:mb-0 w-full">
             <img
               src={data?.logo}
               alt={data?.channel}
               className="rounded-full w-10 h-10"
             />
             <div className="px-3">
-              <h3 className="text-yt-white font-medium text-base flex items-center">
+              <h3 className="text-[#fff] font-medium text-base flex items-center">
                 {data?.channel && data?.channel.length <= 25
                   ? data?.channel
                   : `${data?.channel && data?.channel.substr(0, 20)}...`}
-                <span className="p-1 text-yt-gray">
+                <span className="p-1 text-[#909090]">
                   <MdVerified />
                 </span>
               </h3>
-              <p className="text-xs text-yt-gray">
+              <p className="text-xs text-[#909090]">
                 {data?.subscribers} subscribers
               </p>
             </div>
-            <button className="bg-yt-white px-3 py-2 rounded-full text-sm font-semibold ml-3">
+            <button
+              title="Subscribe"
+              className="bg-[#fff] px-3 py-2 rounded-full text-sm font-semibold ml-3"
+            >
               Subscribe
             </button>
           </div>
-          <div className="flex pl-28">
-            <div className="flex bg-yt-light-black items-center rounded-full h-10 mx-1 ">
+          {/* Like share download and options icon */}
+          <div className="flex  items-center gap-1 w-full">
+            <div className="flex bg-[#2a2a2a] items-center rounded-full h-10">
               <div
-                onClick={debouncedToggleLike} // Use the debouncedToggleLike function
-                className="rounded-l-full flex px-3 h-full items-center border-r-2 border-r-yt-light-1 cursor-pointer hover:bg-yt-light-1"
+                onClick={debouncedToggleLike}
+                className="rounded-l-full flex px-3 h-full items-center border-r-2 border-r-[#404040] cursor-pointer hover:bg-[#404040]"
               >
                 {liked ? (
-                  <AiFillLike className="text-yt-white text-2xl" />
+                  <AiFillLike className="text-[#fff] text-2xl" />
                 ) : (
-                  <AiOutlineLike className="text-yt-white text-2xl" />
+                  <AiOutlineLike className="text-[#fff] text-2xl" />
                 )}
-                <p className="text-yt-white pl-2 pr-3 text-sm font-semibold">
+                <p className="text-[#fff] pl-2 pr-3 text-sm font-semibold">
                   {likeCount}
                 </p>
               </div>
-              <div className="rounded-r-full flex pl-4 pr-5 h-full items-center border-r-yt-light-1 cursor-pointer hover:bg-yt-light-1">
-                <BiDislike className="text-[22px] font-extralight text-yt-white" />
+              <div className="rounded-r-full flex pl-4 pr-5 h-full items-center border-r-[#404040] cursor-pointer hover:bg-[#404040]">
+                <BiDislike className="text-[22px] font-extralight text-[#fff]" />
               </div>
             </div>
-            <div className="flex bg-yt-light-black items-center rounded-full h-10 mx-1 cursor-pointer hover:bg-yt-light-1">
-              <div className="flex px-3 items-center cursor-pointer">
-                <RiShareForwardLine className="text-2xl text-yt-white font-thin" />
-                <p className="text-yt-white pl-2 pr-3 text-sm font-semibold">
+            <div className="flex bg-[#2a2a2a] items-center rounded-full h-10 cursor-pointer hover:bg-[#404040]">
+              <div
+                title="Share"
+                className="flex px-3 items-center cursor-pointer"
+              >
+                <RiShareForwardLine className="text-2xl text-[#fff] font-thin" />
+                <p className="text-[#fff] pl-2 pr-3 text-sm font-semibold">
                   Share
                 </p>
               </div>
             </div>
-            <div className="flex bg-yt-light-black items-center rounded-full h-10 mx-1 cursor-pointer hover:bg-yt-light-1">
-              <div className="flex px-3 items-center cursor-pointer">
-                <HiDownload className="text-2xl text-yt-white font-thin" />
-                <p className="text-yt-white pl-2 pr-3 text-sm font-semibold">
+            <div className="flex bg-[#2a2a2a] items-center rounded-full h-10 cursor-pointer hover:bg-[#404040]">
+              <div
+                title="Download"
+                className="flex px-3 items-center cursor-pointer"
+              >
+                <HiDownload
+                  title="Download"
+                  className="text-2xl text-[#fff] font-thin"
+                />
+                <p className="text-[#fff] pl-2 pr-3 text-sm font-semibold">
                   Download
                 </p>
               </div>
             </div>
 
-            <div className="flex bg-yt-light-black hover:bg-yt-light-1 cursor-pointer items-center rounded-full justify-center w-10 h-10 text-yt-white">
-              <HiDotsHorizontal />
+            <div className="flex bg-[#2a2a2a] hover:bg-[#404040] cursor-pointer items-center rounded-full justify-center w-10 h-10 text-[#fff]">
+              <div
+                title="Options"
+                className="flex px-3 items-center cursor-pointer"
+              >
+                <HiDotsHorizontal />
+              </div>
             </div>
           </div>
         </div>
-        <div className="max-w-4xl bg-yt-light-black mt-4 rounded-2xl text-sm p-3 text-yt-white">
+        {/* Description */}
+        <div className="max-w-4xl bg-[#2a2a2a] mt-4 rounded-[0.3rem] text-sm p-3 text-[#fff]">
           <div className="flex">
             <p className="font-medium pr-3">
               {data?.views}
@@ -225,52 +248,73 @@ const Video = () => {
           <span className="text-center font-medium">{data?.description}</span>
         </div>
         {/* Comments */}
-        <div className="text-yt-white mt-5">
-          <div className="flex items-center">
-            <h1>{comments?.length} Comments</h1>
-            <div className="flex items-center mx-10">
-              <MdOutlineSort size={30} className="mx-3" />
-              <h5>Sort by</h5>
-            </div>
+        <div className="text-[#fff] mt-5">
+          <div
+            className="bg-[#2a2a2a] flex justify-between items-center text-[#fff] p-2 rounded-[0.3rem] lg:hidden cursor-pointer mb-3"
+            onClick={() => setShowRecommended(!showRecommended)}
+          >
+            {showRecommended ? "Close comments" : "View Comments"}
+            {!showRecommended ? <IoIosArrowDown /> : <IoIosArrowUp />}
           </div>
 
-          {user && (
-            <form
-              onSubmit={addComment}
-              className="flex w-[800px] pt-4 items-start"
-            >
-              <img
-                src={user?.photoURL}
-                alt="profile"
-                className="rounded-full mr-3 h-10 w-10"
-              />
-              <input
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                type="text"
-                placeholder="Add a comment..."
-                className="bg-[transparent] border-b border-b-yt-light-black outline-none text-sm p-1 w-full"
-              />
-            </form>
-          )}
+          <div
+            className={`${
+              showRecommended ? "block" : "hidden"
+            } bg-[#2a2a2a] p-5 rounded-[0.3rem] lg:block`}
+          >
+            <div className={`flex justify-between items-center`}>
+              <h1>{comments?.length} Comments</h1>
+              <div
+                title="Sort by"
+                className="flex items-center mx-10 cursor-pointer"
+              >
+                <MdOutlineSort size={25} className="mx-3" />
+                <h5>Sort by</h5>
+              </div>
+            </div>
 
-          {!user ? (
-            <SignInComponent prefix={"Please"} postfix={"add comments"} />
-          ) : null}
-          <div className="mt-4">
-            {comments?.map((item, i) => (
-              <Comment key={i} {...item} />
-            ))}
+            {user && (
+              <form
+                onSubmit={addComment}
+                className="flex w-full lg:w-[800px] pt-4 items-start"
+              >
+                <img
+                  src={user?.photoURL}
+                  alt="profile"
+                  className="rounded-full mr-3 h-10 w-10"
+                />
+                <input
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  type="text"
+                  placeholder="Add a comment..."
+                  className="bg-[transparent] border-b border-b-[#404040] outline-none text-sm p-1 w-full"
+                />
+              </form>
+            )}
+
+            {!user ? (
+              <SignInComponent prefix={"Please"} postfix={"add comments"}>
+                sign in
+              </SignInComponent>
+            ) : null}
+            <div className="mt-4">
+              {comments?.map((item, i) => (
+                <Comment key={i} {...item} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="right px-3 overflow-y-hidden flex-[0.4]">
-        <div>
-          <div className="flex flex-row px-3 overflow-x-scroll relative scrollbar-hide">
+      <div className="lg:flex-[0.4] lg:px-3 max-791:mt-[-1.5rem] lg:overflow-y-hidden mt-5 lg:mt-0">
+        <div className="max-791:hidden flex flex-row lg:flex-col lg:overflow-x-hidden relative">
+          <div
+            className={`lg:flex flex flex-row gap-1 relative scrollbar-hide`}
+          >
             {CategoryItems?.map((item, i) => (
               <h2
-                className="text-yt-white font-normal text-sm py-2 px-4 break-keep whitespace-nowrap bg-yt-light mr-3 cursor-pointer rounded-lg hover:bg-yt-light-1"
+                className="text-[#fff] font-normal text-sm py-2 px-4 break-keep whitespace-nowrap bg-[#3a3a3a] mr-3 lg:mr-0 cursor-pointer rounded-lg hover:bg-[#505050]"
                 key={i}
               >
                 {item}
@@ -278,7 +322,7 @@ const Video = () => {
             ))}
           </div>
         </div>
-        <div className="pt-8">
+        <div className={`lg:block pt-8`}>
           {videos?.map((video, i) => {
             return video.id !== id ? (
               <Link key={i} to={`/video/${video.id}`}>

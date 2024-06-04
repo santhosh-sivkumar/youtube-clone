@@ -3,7 +3,7 @@ import ContentComponent from "../components/youtubeStudio/ContentComponent";
 import StudioSidebar from "../components/youtubeStudio/StudioSidebar";
 import { useSelector } from "react-redux";
 import { getUser } from "../slices/userSlice";
-import SignInComponent from "../components/SignInComponent";
+import SignInComponent from "../components/helper/SignInComponent";
 
 const YoutubeStudio = () => {
   const [activeInStudioSidebar, setActiveInStudioSidebar] = useState("Content");
@@ -37,7 +37,9 @@ const YoutubeStudio = () => {
               <SignInComponent
                 prefix={"Please"}
                 postfix={`view ${activeInStudioSidebar}`}
-              />
+              >
+                sign in
+              </SignInComponent>
             )}
           </div>
         )}

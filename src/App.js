@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Video from "./pages/Video";
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Home/Navbar";
 import YoutubeStudio from "./pages/YoutubeStudio";
 function App() {
   return (

@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterByCategory, setVideos } from "../slices/videoSlice";
-import { SideBarItems } from "../static/Data";
+import { filterByCategory, setVideos } from "../../slices/videoSlice";
+import { SideBarItems } from "../../static/Data";
 import RenderSidebarItems from "./RenderSidebarItems";
-import { selectSidebarState } from "../slices/sidebarSlice";
+import { selectSidebarState } from "../../slices/sidebarSlice";
 
 const Sidebar = () => {
   const dispatch = useDispatch();

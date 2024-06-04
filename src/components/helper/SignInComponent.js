@@ -1,10 +1,9 @@
-import { signInWithPopup } from "firebase/auth";
 import React from "react";
-import { setUser } from "../slices/userSlice";
-import { auth, provider } from "../firebase";
-import { setUserUploadedVideos } from "../slices/videoSlice";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { signInWithPopup } from "firebase/auth";
+import { setUser } from "../../slices/userSlice";
+import { auth, provider } from "../../firebase";
+import { setUserUploadedVideos } from "../../slices/videoSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const SignInComponent = ({ children, prefix, postfix, className }) => {
   const dispatch = useDispatch();
@@ -25,13 +24,13 @@ const SignInComponent = ({ children, prefix, postfix, className }) => {
       <div className={`${!className && "text-center p-12"}`}>
         {`${prefix ? prefix : ""} `}
         <button
+          title={"Sign in"}
           className={`${
             className ? className : "text-yt-blue hover:underline"
           }`}
           onClick={(e) => handleLogin(e)}
         >
-          {children}
-          {prefix ? "sign in" : "Sign in"}
+          {children ? children : ""}
         </button>{" "}
         {`${postfix ? `to ${postfix.toLowerCase()}` : ""} `}
       </div>

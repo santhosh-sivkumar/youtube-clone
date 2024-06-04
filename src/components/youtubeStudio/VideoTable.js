@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import VideoDetails from "./VideoDetails";
 import { db } from "../../firebase";
 import { doc, deleteDoc } from "firebase/firestore";
-import LoadingComponent from "../LoadingComponent";
+import LoadingComponent from "../helper/LoadingComponent";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import TableRows from "./TableRows";
 import { useDispatch } from "react-redux";

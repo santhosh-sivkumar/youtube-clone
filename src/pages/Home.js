@@ -1,13 +1,13 @@
 // src/pages/Home.js
 import React, { useEffect } from "react";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Home/Sidebar";
 import { CategoryItems } from "../static/Data";
 import { auth } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../slices/userSlice";
 import { fetchVideos, setVideos, filterByCategory } from "../slices/videoSlice";
 import { onAuthStateChanged } from "firebase/auth";
-import VideoSection from "../components/VideoSection";
+import VideoSection from "../components/Home/VideoSection";
 
 const Home = () => {
   const dispatch = useDispatch();
