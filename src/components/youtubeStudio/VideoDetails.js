@@ -37,7 +37,7 @@ const VideoDetails = ({ video, onClose }) => {
                 <img
                   src={video.logo}
                   alt=""
-                  className="h-16 w-16 object-cover rounded-full shadow-md mt-12"
+                  className="h-16 w-16 object-cover rounded-full shadow-md mt-12 mb-3"
                 />
                 <p className="text-sm font-normal mb-2 text-yt-blue">
                   Channel Logo

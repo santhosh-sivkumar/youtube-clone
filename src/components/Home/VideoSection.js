@@ -7,12 +7,12 @@ const VideoSection = ({ status, videos, error, errorMsg }) => {
   return (
     <div className="pt-8 px-5 pb-12 grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {videos?.length === 0 ? (
-        <div className="h-[86vh] flex items-center justify-center">
+        <div className="h-[86vh] absolute w-[100%] flex items-center justify-center">
           {status !== "loading" && (
             <p className="p-3 text-[#fff] absolute top-[24rem]">{errorMsg}</p>
           )}
           {status === "loading" && (
-            <span className="absolute top-72">
+            <span className="mt-[-9rem] ml-[-7rem]">
               <TailSpin
                 visible={true}
                 height="40"
