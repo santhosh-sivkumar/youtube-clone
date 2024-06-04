@@ -123,7 +123,7 @@ const Navbar = () => {
     <div
       className={`navbar ${
         location.pathname !== "/YoutubeStudio" ? "bg-yt-black" : "bg-[#282828]"
-      } pt-[20px] pr-[24px] pb-[12px] h-14 flex items-center pl-[16px] justify-between fixed w-full z-10`}
+      }  h-14 flex items-center pr-[10px] pl-[6px] justify-between fixed w-full z-10`}
     >
       {/* left section */}
       <div className="flex justify-start items-center w-1/4">
@@ -179,9 +179,9 @@ const Navbar = () => {
         <div className="h-10 flex flex-row items-center w-2/4">
           <div className="w-full flex text-[#576772] border border-[#606060] items-center rounded-[5px] h-10">
             <input
-              name="Search across your channel"
+              name="Search"
               type="text"
-              placeholder="Search across your channel..."
+              placeholder="Search"
               className="w-full  bg-[#282828] h-6 ml-6 text-yt-white text-start focus:outline-none "
               value={searchQuery}
               onChange={handleSearch}
@@ -194,7 +194,7 @@ const Navbar = () => {
         <div className="flex flex-row items-center">
           {location.pathname === "/YoutubeStudio" ? (
             <button
-              className="flex flex-row text-yt-white justify-center py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-[0.2rem] hover:bg-yt-light-blue"
+              className="flex flex-row text-yt-white justify-center py-[0.4rem] max-791:border-[#fff0] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-[0.2rem] hover:bg-yt-light-blue"
               onClick={handleClick}
             >
               <BiVideoPlus
@@ -202,10 +202,10 @@ const Navbar = () => {
                 className="text-[#ff4e45] cursor-pointer"
                 size={25}
               />
-              CREATE
+              <span className="max-791:hidden">CREATE</span>
             </button>
-          ) : (
-            <div className="mr-2 p-2 w-10 hover:bg-yt-light-black rounded-full cursor-pointer">
+          ) : user ? (
+            <div className=" mr-2 p-2 w-10 hover:bg-yt-light-black rounded-full cursor-pointer">
               <Link to={`/YoutubeStudio`}>
                 <BiVideoPlus
                   title="Create video"
@@ -215,6 +215,8 @@ const Navbar = () => {
                 />
               </Link>
             </div>
+          ) : (
+            ""
           )}
           {/* Popup Window */}
           {showPopup && (
@@ -243,8 +245,8 @@ const Navbar = () => {
                 className="object-contain rounded-full cursor-pointer w-8 h-8"
               />
             ) : (
-              <SignInComponent className="flex flex-row justify-center bg-yt-black py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-3xl hover:bg-yt-light-blue">
-                <VscAccount size={20} />
+              <SignInComponent className=" max-791:text-xs max-791:px-[0.5rem] flex flex-row justify-center bg-yt-black py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-3xl hover:bg-yt-light-blue">
+                <VscAccount size={20} /> Sign In
               </SignInComponent>
             )}
           </div>
