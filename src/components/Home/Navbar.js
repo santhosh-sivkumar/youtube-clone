@@ -138,13 +138,13 @@ const Navbar = () => {
         >
           <HiOutlineBars3 title="Menu" />
         </div>
-        <div className="pl-[0.5rem]  w-32">
+        <div className="pl-2 w-32 sm:w-28 lg:w-32">
           <Link to="/">
             <img
               title="Youtube Clone"
               src={location.pathname === "/YoutubeStudio" ? studioLogo : logo}
               alt=""
-              className="object-contain w-[87.8%]"
+              className="object-contain w-full"
             />
           </Link>
         </div>
@@ -204,7 +204,7 @@ const Navbar = () => {
               />
               <span className="max-791:hidden">CREATE</span>
             </button>
-          ) : user ? (
+          ) : (
             <div className=" mr-2 p-2 w-10 hover:bg-yt-light-black rounded-full cursor-pointer">
               <Link to={`/YoutubeStudio`}>
                 <BiVideoPlus
@@ -215,8 +215,6 @@ const Navbar = () => {
                 />
               </Link>
             </div>
-          ) : (
-            ""
           )}
           {/* Popup Window */}
           {showPopup && (
@@ -246,7 +244,8 @@ const Navbar = () => {
               />
             ) : (
               <SignInComponent className=" max-791:text-xs max-791:px-[0.5rem] flex flex-row justify-center bg-yt-black py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-3xl hover:bg-yt-light-blue">
-                <VscAccount size={20} /> Sign In
+                <VscAccount size={20} />
+                <span className="max-791:hidden">Sign In</span>
               </SignInComponent>
             )}
           </div>
