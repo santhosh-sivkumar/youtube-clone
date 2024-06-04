@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
-import { db, auth } from "../firebase";
+import { db, auth } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { CgClose } from "react-icons/cg";
 import { GiNextButton, GiPreviousButton } from "react-icons/gi";
 import { BiSave } from "react-icons/bi";
-import Form from "../components/inputFields/Form";
-import {
-  formFieldsStep1,
-  formFieldsStep2,
-} from "../components/inputFields/formFields";
-import { getUser } from "../slices/userSlice";
+import Form from "../inputFields/Form";
+import { formFieldsStep1, formFieldsStep2 } from "../inputFields/formFields";
+import { getUser } from "../../slices/userSlice";
 import { useSelector } from "react-redux";
 
 import { FaSave } from "react-icons/fa";
 
-const NewVideoFormModel = ({ togglePopup, isNew }) => {
+const AddVideo = ({ togglePopup, isNew }) => {
   const [step, setStep] = useState(1);
   const [userEmail, setUserEmail] = useState("");
   const user = useSelector(getUser);
@@ -25,11 +22,11 @@ const NewVideoFormModel = ({ togglePopup, isNew }) => {
     ? _formData
     : {
         category: "",
-        channel: user.displayName,
+        channel: user?.displayName,
         description: "",
         duration: "",
         link: "",
-        logo: user.photoURL,
+        logo: user?.photoURL,
         name: "",
         subscribers: "",
         thumbnail: "",
@@ -90,16 +87,15 @@ const NewVideoFormModel = ({ togglePopup, isNew }) => {
 
     return newErrors;
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validateForm(step);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      return;
+    } else {
+      handleDatabaseOperation();
+      togglePopup(); // Close the popup after the form is successfully submitted
     }
-
-    handleDatabaseOperation();
   };
 
   const handleDatabaseOperation = () => {
@@ -128,10 +124,10 @@ const NewVideoFormModel = ({ togglePopup, isNew }) => {
   };
 
   return (
-    <div className="fixed cursor-pointer inset-0 flex items-center justify-center bg-yt-black backdrop-filter backdrop-blur-sm bg-opacity-50 z-50">
+    <div className="fixed cursor-pointer inset-0 flex items-center justify-center  backdrop-filter backdrop-blur-[2px] bg-opacity-50 z-50">
       <div className="bg-[#1f1f1f] p-6 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
         <div className="flex flex-row text-yt-white m-0 pb-3 justify-between items-center border-b-[1px] border-[#3e3e3e] ">
-          <h2 className="text-xl font-bold">Video Details</h2>
+          <h2 className="text-xl font-bold">Add Video Details</h2>
           <button
             onClick={togglePopup}
             className="hover:text-yt-blue font-bold py-2 px-4 "
@@ -184,10 +180,7 @@ const NewVideoFormModel = ({ togglePopup, isNew }) => {
               <div className="flex justify-end">
                 <button
                   type="button"
-                  onClick={(e) => {
-                    handleSubmit(e);
-                    togglePopup();
-                  }}
+                  onClick={handleSubmit}
                   className="flex flex-row text-yt-white justify-center py-[0.4rem] px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-[0.2rem] hover:bg-yt-light-blue"
                 >
                   {initialFormData ? (
@@ -206,4 +199,4 @@ const NewVideoFormModel = ({ togglePopup, isNew }) => {
   );
 };
 
-export default NewVideoFormModel;
+export default AddVideo;

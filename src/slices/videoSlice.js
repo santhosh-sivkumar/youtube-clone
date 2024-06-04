@@ -28,6 +28,7 @@ const videoSlice = createSlice({
     videos: [],
     allVideos: [],
     filteredVideos: [],
+    userUploadedVideos: [],
     status: "idle",
     error: null,
     searchQuery: "",
@@ -37,6 +38,9 @@ const videoSlice = createSlice({
   reducers: {
     setAllVideos: (state, action) => {
       state.allVideos = action.payload;
+    },
+    setUserUploadedVideos: (state, action) => {
+      state.userUploadedVideos = action.payload;
     },
     setFormData: (state, action) => {
       state.formData = action.payload;
@@ -70,6 +74,11 @@ const videoSlice = createSlice({
         video.name.toLowerCase().includes(state.searchQuery.toLowerCase())
       );
     },
+    filterUserUploadedVideosByName: (state) => {
+      state.userUploadedVideos = state.userUploadedVideos.filter((video) =>
+        video.name.toLowerCase().includes(state.searchQuery.toLowerCase())
+      );
+    },
     // Action to toggle edit mode
     toggleShowModel: (state, action) => {
       state.showModel = action.payload;
@@ -86,7 +95,9 @@ export const {
   filterByCategory,
   filterVideosByName,
   toggleShowModel,
-  setFormData, // Export the toggleShowModel action
+  setFormData,
+  filterUserUploadedVideosByName,
+  setUserUploadedVideos, // Export the toggleShowModel action
 } = videoSlice.actions;
 
 export default videoSlice.reducer;

@@ -42,7 +42,7 @@ const Home = () => {
   return (
     <>
       <Sidebar />
-      <div className="w-[calc(100%-240px)]  h-[calc(100%-53px)] pt-[4.5rem] bg-yt-black left-60 relative max-1054:left-0 max-1054:w-full">
+      <div className="w-[83%]  h-[calc(100%-53px)] pt-[4.5rem] bg-yt-black left-60 relative max-1054:left-0 max-1054:w-full">
         <div className="flex flex-row px-3 overflow-x-scroll  relative scrollbar-hide">
           {CategoryItems.map((item, i) => (
             <h2

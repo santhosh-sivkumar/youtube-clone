@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Video from "./pages/Video";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
-import Channel from "./pages/Channel";
+import YoutubeStudio from "./pages/YoutubeStudio";
 function App() {
   return (
     <>
@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/video/:id" element={<Video />} />
-          <Route path="/Channel" element={<Channel />} />
+          <Route path="/YoutubeStudio" element={<YoutubeStudio />} />
         </Routes>
       </BrowserRouter>
     </>

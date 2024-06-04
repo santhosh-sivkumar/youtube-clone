@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterByCategory, setVideos } from "../slices/videoSlice";
 import { SideBarItems } from "../static/Data";
 import RenderSidebarItems from "./RenderSidebarItems";
+import { selectSidebarState } from "../slices/sidebarSlice";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { allVideos } = useSelector((state) => state.videos);
   const [active, setActive] = useState("Home");
+  const sidebarState = useSelector(selectSidebarState);
 
   const handleFilter = useCallback(
     (category) => {
@@ -27,7 +29,12 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar yt-scrollbar scrollbar-hide w-60 bg-yt-black h-[calc(100vh-53px)] fixed top-14 left-0 text-yt-white p-3 overflow-scroll max-1054:hidden">
+    <div
+      className={`sidebar ${
+        sidebarState.isOpen ? "translate-x-0" : "-translate-x-full"
+      }  inset-y-0 w-[17%] text-white transition-transform duration-300 ease-in-out
+      sidebar yt-scrollbar scrollbar-hide bg-yt-black h-[calc(100vh-53px)] fixed top-14 left-0 text-yt-white p-3 overflow-scroll max-1054:hidden`}
+    >
       <div className="mb-4">
         <RenderSidebarItems
           items={SideBarItems.Top}
