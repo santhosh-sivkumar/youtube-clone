@@ -18,7 +18,7 @@ const SearchBar = ({ searchQuery, handleSearch }) => {
         />
         <button
           title="Search"
-          className="w-16 h-[2.2rem] bg-yt-light-black px-2 py-0.5 rounded-r-3xl border-1-2 border-yt-light-black"
+          className="w-16  h-[2rem] lg:h-[2.2rem] bg-yt-light-black px-2 py-0.5 rounded-r-3xl border-1-2 border-yt-light-black"
         >
           <HiMagnifyingGlass
             size={22}
