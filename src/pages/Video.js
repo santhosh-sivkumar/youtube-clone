@@ -147,13 +147,13 @@ const Video = () => {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:w-[100%] lg:h-[510px] rounded-[0.7rem]"
+            className="w-full h-[220px] sm:h-[300px] md:h-[400px] lg:w-[100%] lg:h-[510px] rounded-[0.7rem]"
           ></iframe>
         </div>
-        <h2 className="text-[#fff] font-semibold mt-3 mb-2 text-xl">
+        <h2 className="text-[#fff] font-semibold mt-3 mb-2 text-md lg:text-xl">
           {data?.name}
         </h2>
-        <div className="flex max-791:flex-col p-2 flex-row max-791:gap-5 max-791:items-start  items-center justify-between">
+        <div className="flex max-791:flex-col lg:p-2 flex-row max-791:gap-4 max-791:items-start  items-center justify-between">
           {/* channel name and subscribe button */}
           <div className="flex items-center lg:mb-0 flex-wrap">
             <img
@@ -235,8 +235,8 @@ const Video = () => {
           </div>
         </div>
         {/* Description */}
-        <div className=" bg-[#2a2a2a] mt-4 rounded-[0.3rem] text-sm p-3 text-[#fff]">
-          <div className="flex flex-col md:flex-row md:items-center">
+        <div className=" bg-[#2a2a2a] mt-4 rounded-[0.3rem] text-xs lg:text-sm p-3 text-[#fff]">
+          <div className="flex flex-row md:items-center">
             <p className="font-medium pr-3 mb-2 md:mb-0">
               {data?.views}
               <span className="pl-1 text-xs">Views</span>
