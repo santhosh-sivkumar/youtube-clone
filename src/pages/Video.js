@@ -153,6 +153,17 @@ const Video = () => {
         <h2 className="text-[#fff] font-semibold mt-3 mb-2 text-md lg:text-xl">
           {data?.name}
         </h2>
+        {/* Description */}
+        <div className=" bg-[#2a2a2a] my-4 rounded-[0.3rem] text-xs lg:text-sm p-3 text-[#fff]">
+          <div className="flex flex-row md:items-center">
+            <p className="font-medium pr-3 mb-2 md:mb-0">
+              {data?.views}
+              <span className="pl-1 text-xs">Views</span>
+            </p>
+            <p className="font-medium pr-3">{data?.uploadTime}</p>
+          </div>
+          <span className="text-center font-medium">{data?.description}</span>
+        </div>
         <div className="flex max-791:flex-col lg:p-2 flex-row max-791:gap-4 max-791:items-start  items-center justify-between">
           {/* channel name and subscribe button */}
           <div className="flex items-center lg:mb-0 flex-wrap">
@@ -233,17 +244,6 @@ const Video = () => {
               </div>
             </div>
           </div>
-        </div>
-        {/* Description */}
-        <div className=" bg-[#2a2a2a] mt-4 rounded-[0.3rem] text-xs lg:text-sm p-3 text-[#fff]">
-          <div className="flex flex-row md:items-center">
-            <p className="font-medium pr-3 mb-2 md:mb-0">
-              {data?.views}
-              <span className="pl-1 text-xs">Views</span>
-            </p>
-            <p className="font-medium pr-3">{data?.uploadTime}</p>
-          </div>
-          <span className="text-center font-medium">{data?.description}</span>
         </div>
 
         {/* Comments */}
