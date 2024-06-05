@@ -126,16 +126,16 @@ const Navbar = () => {
         location.pathname !== "/YoutubeStudio"
           ? "bg-yt-black "
           : "bg-[#282828] navbar"
-      }  h-14 flex items-center pr-[30px] pl-[20px]
-      max-1054:pr-[10px] max-1054:pl-[6px]  justify-between fixed w-full z-10`}
+      }  h-14 flex gap-4 items-center px-2
+       fixed w-full`}
     >
       {/* left section */}
-      <div className="flex justify-start items-center w-1/4">
+      <div className="flex justify-start items-center w-[30%] ">
         <MenuButton
           handleToggleSidebar={handleToggleSidebar}
           location={location}
         />
-        <div className="pl-2 w-24 sm:w-28 lg:w-32">
+        <div className="pl-2 w-32">
           <Link to="/">
             <img
               title="Youtube Clone"
@@ -150,13 +150,13 @@ const Navbar = () => {
       {location.pathname !== "/YoutubeStudio" ? (
         <SearchBar searchQuery={searchQuery} handleSearch={handleSearch} />
       ) : (
-        <div className="flex flex-row items-center w-2/4">
-          <div className="w-full flex text-[#576772] border border-[#606060] items-center rounded-[5px] h-10">
+        <div className="flex flex-row items-center w-[40%]  justify-center">
+          <div className="  text-[#576772] flex items-center border border-[#606060] w-full rounded-md h-8">
             <input
               name="Search"
               type="text"
               placeholder="Search"
-              className="w-full  bg-[#282828] h-6 ml-6 text-yt-white text-start focus:outline-none "
+              className="w-[95%]  bg-[#00000000] ml-6  text-yt-white text-start focus:outline-none "
               value={searchQuery}
               onChange={handleSearch}
             />
@@ -164,7 +164,7 @@ const Navbar = () => {
         </div>
       )}
       {/* right section */}
-      <div className="flex items-center justify-end w-1/5">
+      <div className="flex items-center justify-end w-[30%] ">
         <div className="flex flex-row gap-[1rem] items-center">
           {location.pathname === "/YoutubeStudio" ? (
             <CreateVideoButton handleClick={handleClick} />

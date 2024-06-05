@@ -39,6 +39,7 @@ const Video = () => {
   const [comments, setComments] = useState([]);
   const [data, setData] = useState("");
   const [liked, setLiked] = useState(false);
+
   const [likeCount, setLikeCount] = useState(0);
   const [comment, setComment] = useState("");
   const [showRecommended, setShowRecommended] = useState(false);
@@ -135,7 +136,7 @@ const Video = () => {
       setDoc(videoDoc, { likeCount: likeCount + 1 }, { merge: true });
     }
   };
-  const debouncedToggleLike = debounce(toggleLike, 1000);
+  const debouncedToggleLike = debounce(toggleLike, 100);
 
   return (
     <div className="py-20 px-6 flex flex-col lg:flex-row h-full">
@@ -147,7 +148,7 @@ const Video = () => {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="w-full h-[220px] sm:h-[300px] md:h-[400px] lg:w-[100%] lg:h-[510px] rounded-[0.7rem]"
+            className="w-full h-[13rem] sm:h-[300px] md:h-[400px] lg:w-[100%] lg:h-[510px] rounded-[0.7rem]"
           ></iframe>
         </div>
         <h2 className="text-[#fff] font-semibold mt-3 mb-2 text-md lg:text-xl">

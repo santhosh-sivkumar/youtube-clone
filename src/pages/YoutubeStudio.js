@@ -12,15 +12,15 @@ const YoutubeStudio = () => {
     setActiveInStudioSidebar(category);
   };
   return (
-    <div className="font-semibold bg-[#282828] text-[#aaa] w-full flex h-[calc(100%-53px)] py-[4rem]">
+    <div className="font-semibold bg-[#282828] text-[#aaa] w-full relative flex h-[calc(100vh-3.5rem)] top-[3.5rem]">
       <StudioSidebar
         activeInStudioSidebar={activeInStudioSidebar}
         handleStudioSidebarClick={handleStudioSidebarClick}
       />{" "}
-      <div className="mainBar w-[100%]">
+      <div className="mainBar w-[100%] ">
         {/* TITLE */}
-        <div className="h-[3rem] px-8 pt-8 pb-5 flex items-center">
-          <span className="text-[1.5rem] text-yt-white">
+        <div className="flex pl-6 h-[7%] items-end">
+          <span className="text-2xl text-yt-white">
             {activeInStudioSidebar === "Content"
               ? "Channel Content"
               : activeInStudioSidebar}

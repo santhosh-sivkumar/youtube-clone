@@ -6,12 +6,14 @@ const RenderSidebarItems = ({
   onItemClick,
   activeColor,
   backgroundColor,
+  className,
 }) => {
   return items.map((item, index) => (
     <div
       key={index}
-      className={`h-10 flex justify-start px-3 rounded-xl items-center cursor-pointer hover:bg-${activeColor} my-1 ${
-        item.name === active ? `bg-${activeColor}` : `bg-${backgroundColor}`
+      className={`flex justify-start px-3 items-center cursor-pointer ${
+        className ? className : ` h-10 rounded-xl hover:bg-${activeColor} my-1 `
+      } ${item.name === active ? `bg-${activeColor}` : `bg-${backgroundColor}`}
       }`}
       onClick={() => onItemClick(item.name)}
     >

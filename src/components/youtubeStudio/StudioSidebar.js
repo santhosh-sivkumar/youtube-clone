@@ -4,6 +4,7 @@ import { getUser } from "../../slices/userSlice";
 import dfLogo from "../../assets/default-account-logo.png";
 import { SideBarItems } from "../../static/Data";
 import { selectSidebarState } from "../../slices/sidebarSlice";
+import RenderSidebarItems from "../Home/RenderSidebarItems";
 
 const StudioSidebar = ({ activeInStudioSidebar, handleStudioSidebarClick }) => {
   const user = useSelector(getUser);
@@ -13,7 +14,7 @@ const StudioSidebar = ({ activeInStudioSidebar, handleStudioSidebarClick }) => {
     <div
       className={`${
         sidebarState.isStudioSidebarOpen ? "lg:w-[22%]" : "lg:w-[5%]"
-      }  Studio-Sidebar w-full md:w-1/4 lg:w-[22%] border-r-[1px] border-[#3e3e3e] flex flex-col items-center md:items-start`}
+      }  Studio-Sidebar w-full md:w-1/4 lg:w-[22%] border-r-[1px] border-[#3e3e3e] flex flex-col items-center md:items-start max-1054:hidden`}
     >
       <div className="pt-6 pb-1 flex gap-4 flex-col items-center justify-center w-full">
         <img
@@ -40,20 +41,14 @@ const StudioSidebar = ({ activeInStudioSidebar, handleStudioSidebarClick }) => {
       </div>
       <div className="flex-grow yt-scrollbar scrollbar-hide text-[#aaa] p-3 overflow-scroll w-full">
         <div className="mb-4">
-          {SideBarItems.channel.map((item, index) => (
-            <div
-              key={index}
-              className={`flex justify-start px-3 py-2 items-center cursor-pointer hover:bg-[#1f1f1f] ${
-                item.name === activeInStudioSidebar
-                  ? `bg-[#1f1f1f] border-l-2 border-[#ff4e45] text-[#ff4e45]`
-                  : ``
-              }`}
-              onClick={() => handleStudioSidebarClick(item.name)}
-            >
-              <span className="mr-2 md:mr-5">{item.icon}</span>
-              <p className="p-2  text-xs md:text-sm">{item.name}</p>
-            </div>
-          ))}
+          <RenderSidebarItems
+            items={SideBarItems.channel}
+            active={activeInStudioSidebar}
+            onItemClick={handleStudioSidebarClick}
+            activeColor="bg-[#1f1f1f] border-l-2 border-[#ff4e45] text-[#ff4e45]" // Example active color
+            backgroundColor=""
+            className={"py-2 hover:bg-[#1f1f1f]"}
+          />
         </div>
       </div>
     </div>

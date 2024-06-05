@@ -11,7 +11,7 @@ const Video = ({
   logo,
 }) => {
   return (
-    <div className="flex flex-col cursor-pointer max-w-full sm:max-w-[360px]">
+    <div className="flex flex-col cursor-pointer max-w-full ">
       <div className="relative w-full pb-[56.25%]">
         {" "}
         {/* 16:9 Aspect Ratio */}

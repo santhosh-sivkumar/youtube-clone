@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const TableRows = ({ handleViewClick, handleDeleteClick, handleEditClick }) => {
+const TableRows = ({ handleViewClick, handleDeleteClick }) => {
   const { userUploadedVideos } = useSelector((state) => state.videos);
   return (
     <>
@@ -33,7 +33,7 @@ const TableRows = ({ handleViewClick, handleDeleteClick, handleEditClick }) => {
             <img
               src={video.logo}
               alt=""
-              className="h-9 w-9 rounded-full mx-auto"
+              className="h-6 w-6 rounded-full mx-auto"
             />
           </td>
           <td className="p-3 w-36 text-center">{video.channel}</td>
@@ -48,15 +48,6 @@ const TableRows = ({ handleViewClick, handleDeleteClick, handleEditClick }) => {
               className="text-[rgb(92,231,92)] hover:text-[rgb(59,255,59)] transition-colors duration-300"
             >
               View
-            </button>
-          </td>
-          <td className="p-3 w-24 text-center">
-            <button
-              title="Edit"
-              onClick={() => handleEditClick(video)}
-              className="text-[rgb(213,255,59)] hover:text-[rgba(204,255,116,0.85)] transition-colors duration-300"
-            >
-              Edit
             </button>
           </td>
           <td className="p-3 w-24 text-center">

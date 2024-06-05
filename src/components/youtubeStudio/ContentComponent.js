@@ -14,7 +14,7 @@ const ContentComponent = () => {
 
   return (
     <>
-      <div className="h-[3rem] flex flex-row px-6 pt-0 overflow-x-scroll relative scrollbar-hide border-b-[1px] border-[#3e3e3e]">
+      <div className="flex flex-row h-[10%] pl-5 overflow-x-scroll scrollbar-hide border-b-[1px] border-[#3e3e3e]">
         {ChannelCategoryItems.map((item, i) => (
           <p
             className={`text-sm flex justify-start p-3 items-center cursor-pointer ${
@@ -29,7 +29,7 @@ const ContentComponent = () => {
           </p>
         ))}
       </div>
-      <div className="h-[80%]">
+      <div className="h-[83%]">
         {activeInTopbar === "Videos" ? (
           user ? (
             <VideoTable errorMsg={"No videos found"} />

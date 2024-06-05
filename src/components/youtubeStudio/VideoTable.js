@@ -4,11 +4,12 @@ import { db } from "../../firebase";
 import { doc, deleteDoc } from "firebase/firestore";
 import LoadingComponent from "../helper/LoadingComponent";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
-import TableRows from "./TableRows";
 import { useDispatch } from "react-redux";
 import { setFormData } from "../../slices/videoSlice";
 import AddVideo from "./AddVideo";
 import { useSelector } from "react-redux";
+import RecommendVideoWithButtons from "./RecommendVideoWithButtons";
+import TableRows from "./TableRows";
 
 const VideoTable = ({ errorMsg }) => {
   const { status, error, userUploadedVideos } = useSelector(
@@ -38,49 +39,65 @@ const VideoTable = ({ errorMsg }) => {
   };
 
   return (
-    <div className="pt-4 h-[100%]  px-5 pb-12 overflow-x-auto">
+    <div className="pt-4 h-[100%] px-5 pb-12 overflow-x-auto scrollbar-hide">
       {userUploadedVideos?.length === 0 ? (
         <div className="h-[86vh]">
           <LoadingComponent status={status} errorMsg={errorMsg} error={error} />
         </div>
       ) : (
-        <table className="table-auto  text-xs min-w-full bg-[#1f1f1f] text-yt-white border-separate border-spacing-0">
-          <thead>
-            <tr className="bg-[#3e3e3e]">
-              {[
-                "Thumbnail",
-                "Name",
-                "Description",
-                "Category",
-                "Video Link",
-                "Logo",
-                "Channel",
-                "Duration",
-                "Subscribers",
-                "Upload Time",
-                "Views",
-                "View",
-                "Edit",
-                "Delete",
-              ].map((header, index) => (
-                <th key={index} className="p-3 w-24 text-center">
-                  {header}
-                </th>
+        !selectedVideo && (
+          <>
+            <div className="hidden lg:block">
+              <table className="table-auto text-xs min-w-full bg-[#1f1f1f] text-yt-white border-separate border-spacing-0">
+                <thead>
+                  <tr className="bg-[#3e3e3e]">
+                    {[
+                      "Thumbnail",
+                      "Name",
+                      "Description",
+                      "Category",
+                      "Video Link",
+                      "Logo",
+                      "Channel",
+                      "Duration",
+                      "Subscribers",
+                      "Upload Time",
+                      "Views",
+                      "View",
+                      "Delete",
+                    ].map((header, index) => (
+                      <th key={index} className="p-3 w-24 text-center">
+                        {header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="">
+                  <TableRows
+                    handleViewClick={handleViewClick}
+                    handleDeleteClick={handleDeleteClick}
+                  />
+                </tbody>
+              </table>
+            </div>
+            <div className="block lg:hidden">
+              {userUploadedVideos.map((video, index) => (
+                <RecommendVideoWithButtons
+                  key={index}
+                  video={video}
+                  onViewClick={handleViewClick}
+                  onEditClick={toggleEditMode}
+                  onDeleteClick={handleDeleteClick}
+                />
               ))}
-            </tr>
-          </thead>
-          <tbody className="">
-            <TableRows
-              handleViewClick={handleViewClick}
-              handleDeleteClick={handleDeleteClick}
-              handleEditClick={toggleEditMode}
-            />
-          </tbody>
-        </table>
+            </div>
+          </>
+        )
       )}
       {selectedVideo && (
         <VideoDetails
           video={selectedVideo}
+          handleEditClick={toggleEditMode}
           onClose={() => setSelectedVideo(null)}
         />
       )}
