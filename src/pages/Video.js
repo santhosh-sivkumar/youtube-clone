@@ -176,7 +176,7 @@ const Video = () => {
             </div>
             <button
               title="Subscribe"
-              className="bg-[#fff] px-2 py-1 rounded-full text-xs font-semibold ml-2"
+              className="bg-[#fff] px-2 py-2 rounded-full text-xs font-semibold ml-2"
             >
               Subscribe
             </button>
