@@ -21,7 +21,7 @@ const YoutubeStudio = () => {
         handleStudioSidebarClick={handleStudioSidebarClick}
       />{" "}
       <div
-        className={`absolute transition-all duration-500 ease-linear 
+        className={`absolute transition-all duration-700 ease-in-out z-30
           ${
             sidebarState.isStudioSidebarOpen
               ? "w-full left-0 lg:ml-1/5 lg:md:w-[85%] lg:md:left-[15%] md:ml-0 sm:w-full sm:ml-0"
