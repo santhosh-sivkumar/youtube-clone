@@ -30,7 +30,7 @@ const YoutubeStudio = () => {
         {activeInStudioSidebar === "Content" ? (
           <ContentComponent />
         ) : (
-          <div className="flex items-center justify-center mt-[-80px] h-full text-yt-white">
+          <div className="flex items-center justify-center mt-[-80px] h-full ">
             {user ? (
               "Coming Soon..."
             ) : (

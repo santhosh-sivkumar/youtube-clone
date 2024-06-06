@@ -44,7 +44,7 @@ const ContentComponent = () => {
             </div>
           )
         ) : user ? (
-          <div className="flex items-center justify-center h-full text-yt-white">
+          <div className="flex items-center justify-center h-full ">
             Coming Soon...{" "}
           </div>
         ) : (
