@@ -39,7 +39,7 @@ const RecommendVideo = ({
           <h2 className="font-medium text-[#fff] md:text-md lg:text-sm mt-0 mb-0 items-center">
             <p className="block md:hidden lg:block">{getName()}</p>
             <p className="hidden md:block lg:hidden">
-              {name.length <= 50 ? name : `${name.substr(0, 80)}...`}
+              {name.length <= 50 ? name : `${name.substr(0, 100)}...`}
             </p>
           </h2>
           <div className="flex md:block items-center">
