@@ -24,7 +24,7 @@ const VideoDetails = ({ video, onClose, handleEditClick }) => {
         </button>
         <button
           title="Edit"
-          onClick={handleEditClick}
+          onClick={handleEditClick(video)}
           className="flex items-center text-yt-blue hover:text-yt-blue transition-colors duration-300"
         >
           <BiEdit className="mr-2" size={25} /> Edit
