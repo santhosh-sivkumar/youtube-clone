@@ -52,7 +52,9 @@ const ContentComponent = () => {
             <SignInComponent
               prefix={"Please"}
               postfix={`view ${activeInTopbar}`}
-            />
+            >
+              sign in
+            </SignInComponent>
           </div>
         )}
       </div>
