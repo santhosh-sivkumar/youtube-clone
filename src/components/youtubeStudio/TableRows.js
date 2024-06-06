@@ -1,64 +1,86 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+const TableCell = ({ children, className }) => (
+  <td className={`p-3 text-center ${className}`}>{children}</td>
+);
 
 const TableRows = ({ handleViewClick, handleDeleteClick }) => {
   const { userUploadedVideos } = useSelector((state) => state.videos);
+  const navigate = useNavigate();
+
+  const handleRowClick = (id) => {
+    navigate(`/video/${id}`);
+  };
+
+  const renderVideoName = (video) =>
+    video.name.length <= 25 ? video.name : `${video.name.substr(0, 25)}...`;
+
+  const renderVideoDescription = (video) =>
+    video.description.length <= 25
+      ? video.description
+      : `${video.description.substr(0, 25)}...`;
+
+  const renderButton = (label, onClick, className) => (
+    <button
+      onClick={(e) => {
+        e.stopPropagation(); // Prevent row click event
+        onClick();
+      }}
+      className={`${className} transition-colors duration-300`}
+    >
+      {label}
+    </button>
+  );
+
   return (
     <>
       {userUploadedVideos.map((video, index) => (
         <tr
           key={index}
-          className="border-b-[1px] border-[#3e3e3e] hover:bg-[#2e2e2e]"
+          className="border-b-[1px] border-[#3e3e3e] hover:bg-[#2e2e2e] cursor-pointer"
+          onClick={() => handleRowClick(video.id)}
         >
-          <td className="p-3 w-24 text-center">
+          <TableCell className="w-24">
             <img
               src={video.thumbnail}
               alt=""
               className="h-18 w-20 object-cover mx-auto rounded-md"
             />
-          </td>
-          <td className="p-3 w-36 text-center">
-            {video?.name?.length <= 25
-              ? video.name
-              : `${video.name.substr(0, 25)}...`}
-          </td>
-          <td className="p-3 w-64 text-center">
-            {video?.description?.length <= 25
-              ? video.description
-              : `${video.description.substr(0, 25)}...`}
-          </td>
-          <td className="p-3 w-24 text-center">{video.category}</td>
-          <td className="p-3 w-48 text-center">{video.link}</td>
-          <td className="p-3 w-24 text-center">
+          </TableCell>
+          <TableCell className="w-36">{renderVideoName(video)}</TableCell>
+          <TableCell className="w-64">
+            {renderVideoDescription(video)}
+          </TableCell>
+          <TableCell className="w-24">{video.category}</TableCell>
+          <TableCell className="w-48">{video.link}</TableCell>
+          <TableCell className="w-24">
             <img
               src={video.logo}
               alt=""
               className="h-6 w-6 rounded-full mx-auto"
             />
-          </td>
-          <td className="p-3 w-36 text-center">{video.channel}</td>
-          <td className="p-3 w-24 text-center">{video.duration}</td>
-          <td className="p-3 w-24 text-center">{video.subscribers}</td>
-          <td className="p-3 w-36 text-center">{video.uploadTime}</td>
-          <td className="p-3 w-24 text-center">{video.views}</td>
-          <td className="p-3 w-24 text-center">
-            <button
-              title="View"
-              onClick={() => handleViewClick(video)}
-              className="text-[rgb(92,231,92)] hover:text-[rgb(59,255,59)] transition-colors duration-300"
-            >
-              View
-            </button>
-          </td>
-          <td className="p-3 w-24 text-center">
-            <button
-              title="Delete"
-              onClick={() => handleDeleteClick(video)}
-              className="text-[#ff0e0e] hover:text-[#ff0000] transition-colors duration-300"
-            >
-              Delete
-            </button>
-          </td>
+          </TableCell>
+          <TableCell className="w-36">{video.channel}</TableCell>
+          <TableCell className="w-24">{video.duration}</TableCell>
+          <TableCell className="w-24">{video.subscribers}</TableCell>
+          <TableCell className="w-36">{video.uploadTime}</TableCell>
+          <TableCell className="w-24">{video.views}</TableCell>
+          <TableCell className="w-24">
+            {renderButton(
+              "View",
+              () => handleViewClick(video),
+              "text-[rgb(92,231,92)] hover:text-[rgb(59,255,59)]"
+            )}
+          </TableCell>
+          <TableCell className="w-24">
+            {renderButton(
+              "Delete",
+              () => handleDeleteClick(video),
+              "text-[#ff0e0e] hover:text-[#ff0000]"
+            )}
+          </TableCell>
         </tr>
       ))}
     </>

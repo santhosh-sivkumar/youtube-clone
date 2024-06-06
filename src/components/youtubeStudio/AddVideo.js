@@ -127,7 +127,9 @@ const AddVideo = ({ togglePopup, isNew }) => {
     <div className="fixed cursor-pointer inset-0 flex items-center justify-center  backdrop-filter backdrop-blur-[2px] bg-opacity-50 z-50">
       <div className="bg-[#1f1f1f] p-6 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
         <div className="flex flex-row text-yt-white m-0 pb-3 justify-between items-center border-b-[1px] border-[#3e3e3e] ">
-          <h2 className="text-xl font-bold">Add Video Details</h2>
+          <h2 className="text-xl font-bold">
+            {isNew ? "Add" : "Edit"} Video Details
+          </h2>
           <button
             title="Close"
             onClick={togglePopup}

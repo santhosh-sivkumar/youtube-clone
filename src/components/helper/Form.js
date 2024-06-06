@@ -40,6 +40,7 @@ const Form = ({ formData, handleChange, errors, fields }) => (
             error={errors[field.name]}
             label={field.label}
             placeholder={field.placeholder}
+            disabled={field.name === "channel" || field.name === "logo"}
           />
         );
       }

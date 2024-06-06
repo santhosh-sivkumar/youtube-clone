@@ -11,30 +11,35 @@ const SignInComponent = ({ children, prefix, postfix, className }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await signInWithPopup(auth, provider);
-    setUser(response.user);
-    dispatch(
-      setUserUploadedVideos(
-        allVideos.filter((video) => video.uploadedBy === response.user?.email)
-      )
-    );
+    try {
+      const response = await signInWithPopup(auth, provider);
+      setUser(response.user);
+      dispatch(
+        setUserUploadedVideos(
+          allVideos.filter((video) => video.uploadedBy === response.user?.email)
+        )
+      );
+    } catch (error) {
+      if (error.code === "auth/cancelled-popup-request") {
+        alert("Sign-in process cancelled");
+      } else {
+        alert("An error occurred during sign-in:", error);
+      }
+    }
   };
+
   return (
-    <>
-      <div className={`${!className && "text-center p-12"}`}>
-        {`${prefix ? prefix : ""} `}
-        <button
-          title={"Sign in"}
-          className={`${
-            className ? className : "text-yt-blue hover:underline"
-          }`}
-          onClick={(e) => handleLogin(e)}
-        >
-          {children ? children : ""}
-        </button>{" "}
-        {`${postfix ? `to ${postfix.toLowerCase()}` : ""} `}
-      </div>
-    </>
+    <div className={`${!className && "text-center p-12"}`}>
+      {`${prefix ? prefix : ""} `}
+      <button
+        title={"Sign in"}
+        className={`${className ? className : "text-yt-blue hover:underline"}`}
+        onClick={(e) => handleLogin(e)}
+      >
+        {children ? children : ""}
+      </button>
+      {`${postfix ? `to ${postfix.toLowerCase()}` : ""} `}
+    </div>
   );
 };
 

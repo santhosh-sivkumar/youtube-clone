@@ -30,8 +30,8 @@ const Sidebar = () => {
   return (
     <div
       className={`sidebar absolute pt-3 p-2
-      yt-scrollbar top-14 bg-yt-black text-yt-white transition-all duration-0 ease-in-out 
-          ${isOpen ? "w-1/5 md:w-[15%] sm:w-2/5  z-10" : "w-[3.7%] pl-2"}
+      yt-scrollbar top-14 bg-yt-black text-yt-white transition-all duration-700 ease-linear
+          ${isOpen ? "w-1/5 md:w-[15%] sm:w-2/5 " : "w-[3.7%] pl-2 "}
           bg-gray-800 text-white h-full  max-1054:hidden`}
     >
       <div className="mb-4">

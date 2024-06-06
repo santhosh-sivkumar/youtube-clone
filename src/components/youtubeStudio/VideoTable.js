@@ -10,11 +10,14 @@ import AddVideo from "./AddVideo";
 import { useSelector } from "react-redux";
 import RecommendVideoWithButtons from "./RecommendVideoWithButtons";
 import TableRows from "./TableRows";
+import { selectSidebarState } from "../../slices/sidebarSlice";
 
 const VideoTable = ({ errorMsg }) => {
   const { status, error, userUploadedVideos } = useSelector(
     (state) => state.videos
   );
+  const sidebarState = useSelector(selectSidebarState);
+
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [videoToDelete, setVideoToDelete] = useState(null);
   const [editMode, setEditMode] = useState(false);
@@ -39,7 +42,10 @@ const VideoTable = ({ errorMsg }) => {
   };
 
   return (
-    <div className="pt-4 h-[100%] px-5 pb-12 overflow-x-auto scrollbar-hide">
+    <div
+      className={`pt-4 h-[100%] px-5 pb-12 overflow-x-auto scrollbar-hide 
+        ${!sidebarState.isStudioSidebarOpen && " pr-9"}`}
+    >
       {userUploadedVideos?.length === 0 ? (
         <div className="h-[86vh]">
           <LoadingComponent status={status} errorMsg={errorMsg} error={error} />
@@ -56,7 +62,7 @@ const VideoTable = ({ errorMsg }) => {
                       "Name",
                       "Description",
                       "Category",
-                      "Video Link",
+                      "Iframe Link",
                       "Logo",
                       "Channel",
                       "Duration",
