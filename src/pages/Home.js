@@ -37,7 +37,7 @@ const Home = () => {
         className={`top-14 left-0 pt-4 absolute transition-all duration-100 ease-in-out 
           ${
             isOpen
-              ? "w-full left-0 ml-1/5 md:w-[85%] md:left-[15%] md:ml-0 sm:w-full sm:ml-0"
+              ? "w-full left-0 lg:ml-1/5 lg:md:w-[85%] lg:md:left-[15%] md:ml-0 sm:w-full sm:ml-0"
               : "w-[96.3%] left-[3.7%]"
           }
           bg-white h-full lg:max-1054:left-[1.7%]`}
