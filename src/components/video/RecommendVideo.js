@@ -42,7 +42,7 @@ const RecommendVideo = ({
         />
         <div>
           <h2 className="font-medium text-[#fff] md:text-md lg:text-sm mt-0 mb-0 items-center">
-            <p className="block md:hidden lg:block">
+            <p className=" hidden md:block lg:hidden">
               {name.length <= 50
                 ? name
                 : `${name.substr(
@@ -50,7 +50,7 @@ const RecommendVideo = ({
                     `${location.pathname === "/YoutubeStudio" ? 45 : 60}`
                   )}...`}
             </p>
-            <p className="hidden md:block lg:hidden">
+            <p className="block md:hidden lg:block">
               {name.length <= 50 ? name : `${name.substr(0, 60)}...`}
             </p>
           </h2>
