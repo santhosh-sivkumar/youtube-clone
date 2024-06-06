@@ -9,7 +9,7 @@ const RecommendVideoWithButtons = ({
   onDeleteClick,
 }) => {
   return (
-    <div className="mb-4 p-4 rounded-lg bg-[#202020]">
+    <div className="mb-4 p-4 rounded-lg bg-[#202020] h-[12rem]">
       <Link key={video.key} to={`/video/${video.id}`}>
         <RecommendVideo
           logo={video.logo}
