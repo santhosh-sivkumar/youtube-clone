@@ -14,7 +14,7 @@ const StudioSidebar = ({ activeInStudioSidebar, handleStudioSidebarClick }) => {
       className={`studio-sidebar absolute 
       yt-scrollbar transition-all duration-500 ease-linear
           ${sidebarState.isStudioSidebarOpen ? "lg:w-[15%]" : "lg:w-[5%]"}
-       w-full md:w-1/4 lg:w-[22%] border-r-[1px] border-[#3e3e3e] flex flex-col items-center md:items-start max-1054:hidden`}
+       w-full md:w-1/4 border-r-[1px] border-[#3e3e3e] flex flex-col items-center md:items-start max-1054:hidden`}
     >
       <div className="pt-6 pb-1 flex gap-4 flex-col items-center justify-center w-full">
         <img
