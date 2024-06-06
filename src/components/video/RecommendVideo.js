@@ -24,7 +24,7 @@ const RecommendVideo = ({
         w-[100%] 
         ${
           location.pathname === "/YoutubeStudio"
-            ? "w-[30%] h-[5rem] "
+            ? "w-[30%] h-[4.5rem] "
             : "h-[13rem]"
         }
          md:h-[9.5rem] md:w-[30%] lg:w-[50%] lg:h-[6.5rem] rounded-[13px] lg:rounded-[10px] p-1`}
