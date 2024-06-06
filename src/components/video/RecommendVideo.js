@@ -44,16 +44,20 @@ const RecommendVideo = ({
           <h2 className="font-medium text-[#fff] md:text-md lg:text-sm mt-0 mb-0 items-center">
             {name.length <= 50 ? name : `${name.substr(0, 60)}...`}
           </h2>
-          <div className="flex md:block items-center text-xs">
+          <div className="flex md:block items-center  text-xs">
             <h3 className="text-[#909090] font-medium  mt-1 md:mt-0 flex items-center">
               {channel}
               <span className="p-1 hidden md:block">
                 <MdVerified />
               </span>
-              <span className="p-1 md:hidden block">{`•`}</span>
+              <span className="p-1 md:hidden block">{` • `}</span>
             </h3>
             <h3 className="text-[#909090] font-medium  mt-1 md:mt-0 flex items-center">
-              {views} Views • {uploadTime}
+              {views} Views
+              <span className="p-1 md:hidden block">{` • `}</span>
+            </h3>
+            <h3 className="text-[#909090] font-medium  mt-1 md:mt-0 flex items-center">
+              {uploadTime}
             </h3>
           </div>
         </div>

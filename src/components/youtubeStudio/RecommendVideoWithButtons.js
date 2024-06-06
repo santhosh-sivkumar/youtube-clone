@@ -9,18 +9,20 @@ const RecommendVideoWithButtons = ({
   onDeleteClick,
 }) => {
   return (
-    <div className="mb-4 p-4 rounded-lg bg-[#202020] h-[12rem]">
-      <Link key={video.key} to={`/video/${video.id}`}>
-        <RecommendVideo
-          logo={video.logo}
-          thumbnail={video.thumbnail}
-          name={video.name}
-          channel={video.channel}
-          views={video.views}
-          uploadTime={video.uploadTime}
-        />
-      </Link>
-      <div className="flex justify-around mt-2">
+    <div className="mb-4 flex flex-col p-4 rounded-lg bg-[#202020] h-[10rem]">
+      <div className="h-[80%]">
+        <Link key={video.key} to={`/video/${video.id}`}>
+          <RecommendVideo
+            logo={video.logo}
+            thumbnail={video.thumbnail}
+            name={video.name}
+            channel={video.channel}
+            views={video.views}
+            uploadTime={video.uploadTime}
+          />
+        </Link>
+      </div>
+      <div className="flex justify-around  h-[20%]">
         <button
           title="View"
           onClick={() => onViewClick(video)}
