@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterByCategory, setVideos } from "../../slices/videoSlice";
 import { SideBarItems } from "../../static/Data";
 import RenderSidebarItems from "./RenderSidebarItems";
-import { selectSidebarState } from "../../slices/sidebarSlice";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { allVideos } = useSelector((state) => state.videos);
   const [active, setActive] = useState("Home");
-  const sidebarState = useSelector(selectSidebarState);
+  const { isOpen } = useSelector((state) => state.sidebar);
 
   const handleFilter = useCallback(
     (category) => {
@@ -30,10 +29,10 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`sidebar ${
-        sidebarState.isOpen ? "translate-x-0" : "-translate-x-full"
-      }  inset-y-0 w-[17%] text-white transition-transform duration-300 ease-in-out
-      sidebar yt-scrollbar scrollbar-hide bg-yt-black h-[calc(100vh-53px)] fixed top-14 left-0 text-yt-white p-3 overflow-scroll max-1054:hidden`}
+      className={`sidebar absolute pt-3 p-2
+      yt-scrollbar top-14 bg-yt-black text-yt-white transition-all duration-0 ease-in-out 
+          ${isOpen ? "w-1/5 md:w-[15%] sm:w-2/5  z-10" : "w-[3.7%] pl-2"}
+          bg-gray-800 text-white h-full  max-1054:hidden`}
     >
       <div className="mb-4">
         <RenderSidebarItems
@@ -55,7 +54,7 @@ const Sidebar = () => {
         />
       </div>
       <hr className="text-yt-light-black my-2" />
-      <h2 className="pt-1 px-3">Explore</h2>
+      <h2 className={`pt-1 px-3 ${!isOpen && "hidden"}`}>Explore</h2>
       <div className="mb-4">
         <RenderSidebarItems
           items={SideBarItems.Explore}

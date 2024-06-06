@@ -13,6 +13,7 @@ import HorizontalBar from "../components/video/HorizontalBar";
 const Home = () => {
   const dispatch = useDispatch();
   const { status, videos, error } = useSelector((state) => state.videos);
+  const { isOpen } = useSelector((state) => state.sidebar);
 
   useEffect(() => {
     dispatch(fetchVideos());
@@ -32,7 +33,16 @@ const Home = () => {
   return (
     <>
       <Sidebar />
-      <div className="w-[83%]  h-[calc(100%-53px)] pt-[4.5rem] bg-yt-black left-60 relative max-1054:left-0 max-1054:w-full">
+      <div
+        className={`top-14 pt-4 absolute transition-all duration-100 ease-in-out 
+          ${
+            isOpen
+              ? "w-4/5 ml-1/5 md:w-[85%] md:left-[15%] md:ml-0 sm:w-full sm:ml-0"
+              : "w-[96.3%] left-[3.7%]"
+          }
+          bg-white h-full max-1054:left-[1.7%]`}
+      >
+        {" "}
         <div className="flex flex-row px-3 overflow-x-scroll  relative scrollbar-hide">
           <HorizontalBar CategoryItems={CategoryItems} />
         </div>
