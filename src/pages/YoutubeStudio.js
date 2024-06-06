@@ -19,7 +19,7 @@ const YoutubeStudio = () => {
       />{" "}
       <div className="mainBar w-[100%] ">
         {/* TITLE */}
-        <div className="flex pl-6 h-[7%] items-end my-6 lg:my-0">
+        <div className="flex pl-6 h-[7%] items-end my-3 md:my-6 lg:my-0">
           <span className="text-2xl text-yt-white">
             {activeInStudioSidebar === "Content"
               ? "Channel Content"
