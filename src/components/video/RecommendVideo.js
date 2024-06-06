@@ -42,7 +42,12 @@ const RecommendVideo = ({
         />
         <div>
           <h2 className="font-medium text-[#fff] md:text-md lg:text-sm mt-0 mb-0 items-center">
-            {name.length <= 50 ? name : `${name.substr(0, 60)}...`}
+            {name.length <= 50
+              ? name
+              : `${name.substr(
+                  0,
+                  `${location.pathname === "/YoutubeStudio" ? 45 : 60}`
+                )}...`}
           </h2>
           <div className="flex md:block items-center  text-xs">
             <h3 className="text-[#909090] font-medium  mt-1 md:mt-0 flex items-center">
