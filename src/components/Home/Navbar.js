@@ -70,7 +70,6 @@ const Navbar = () => {
       } else {
         alert("please sign to create");
         await handleLogin(e);
-        setShowPopup(true);
       }
     } else {
       navigate("/YoutubeStudio");

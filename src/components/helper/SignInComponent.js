@@ -32,13 +32,13 @@ const SignInComponent = ({ children, prefix, postfix, className }) => {
     <div className={`${!className && "text-center p-12"}`}>
       {`${prefix ? prefix : ""} `}
       <button
-        title={"Sign in"}
+        title={"Sign in "}
         className={`${className ? className : "text-yt-blue hover:underline"}`}
         onClick={(e) => handleLogin(e)}
       >
         {children ? children : ""}
       </button>
-      {`${postfix ? `to ${postfix.toLowerCase()}` : ""} `}
+      {`${postfix ? ` to ${postfix.toLowerCase()}` : ""} `}
     </div>
   );
 };
