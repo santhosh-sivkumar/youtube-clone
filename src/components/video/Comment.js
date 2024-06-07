@@ -16,7 +16,7 @@ const Comment = ({ name, uploaded, image, comment }) => {
         <div className="flex py-3 justify-between w-36">
           <div className="flex">
             <BiLike size={24} className="cursor-pointer" />
-            <p className="text-sm px-2 text-yt-gray">24</p>
+            <p className="text-sm px-2 text-yt-gray">0</p>
           </div>
           <BiDislike size={23} className="cursor-pointer" />
           <p className="text-sm">Reply</p>
