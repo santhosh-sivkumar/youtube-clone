@@ -1,5 +1,5 @@
 import React from "react";
-import RecommendVideo from "../video/RecommendVideo";
+import RecommendVideo from "../../video/RecommendVideo";
 import { Link } from "react-router-dom";
 
 const RecommendVideoWithButtons = ({

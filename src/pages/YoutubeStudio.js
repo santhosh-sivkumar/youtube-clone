@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ContentComponent from "../components/youtubeStudio/ContentComponent";
+import ContentComponent from "../components/youtubeStudio/ContentSection/ContentComponent";
 import StudioSidebar from "../components/youtubeStudio/StudioSidebar";
 import { useSelector } from "react-redux";
 import { getUser } from "../slices/userSlice";
@@ -30,7 +30,7 @@ const YoutubeStudio = () => {
          h-full lg:max-1054:left-[1.7%]`}
       >
         {/* TITLE */}
-        <div className="flex pl-6 h-[7%] items-end my-0 md:mb-4 md:mt-8 lg:my-0">
+        <div className="flex pl-6 h-[7%] items-end my-0 md:mb-4 md:mt-8 lg:my-0 justify-between">
           <span className="text-2xl text-yt-white">
             {activeInStudioSidebar === "Content"
               ? "Channel Content"

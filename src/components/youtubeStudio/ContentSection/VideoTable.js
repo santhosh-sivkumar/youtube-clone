@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import VideoDetails from "./VideoDetails";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { doc, deleteDoc } from "firebase/firestore";
-import LoadingComponent from "../helper/LoadingComponent";
-import ConfirmDeleteModal from "./ConfirmDeleteModal";
+import LoadingComponent from "../../helper/LoadingComponent";
+import ConfirmDeleteModal from "../ConfirmDeleteModal";
 import { useDispatch } from "react-redux";
-import { setFormData } from "../../slices/videoSlice";
+import { setFormData } from "../../../slices/videoSlice";
 import AddVideo from "./AddVideo";
 import { useSelector } from "react-redux";
 import RecommendVideoWithButtons from "./RecommendVideoWithButtons";
-import TableRows from "./TableRows";
-import { selectSidebarState } from "../../slices/sidebarSlice";
+import TableRows from "../ContentSection/TableRows";
+import { selectSidebarState } from "../../../slices/sidebarSlice";
 
 const VideoTable = ({ errorMsg }) => {
   const { status, error, userUploadedVideos } = useSelector(

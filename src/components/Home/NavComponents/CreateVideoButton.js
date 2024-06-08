@@ -3,7 +3,7 @@
 import React from "react";
 import { BiVideoPlus } from "react-icons/bi";
 
-const CreateVideoButton = ({ handleClick, location }) => {
+const CreateVideoButton = ({ handleClick }) => {
   return (
     <button
       className="flex flex-row p-[5px] text-yt-white justify-center lg:py-[0.4rem] max-791:border-[#fff0] lg:px-[0.75rem] items-center gap-2 font-medium text-sm border border-yt-border rounded-[0.2rem] hover:bg-yt-light-blue"

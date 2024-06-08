@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
-import { db, auth } from "../../firebase";
+import { db, auth } from "../../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { CgClose } from "react-icons/cg";
 import { GiNextButton, GiPreviousButton } from "react-icons/gi";
 import { BiSave } from "react-icons/bi";
-import Form from "../helper/Form";
-import { formFieldsStep1, formFieldsStep2 } from "../../static/FormFields";
-import { getUser } from "../../slices/userSlice";
+import Form from "../../helper/Form";
+import { formFieldsStep1, formFieldsStep2 } from "../../../static/FormFields";
+import { getUser } from "../../../slices/userSlice";
 import { useSelector } from "react-redux";
 
 import { FaSave } from "react-icons/fa";

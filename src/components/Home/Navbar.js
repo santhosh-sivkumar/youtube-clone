@@ -18,7 +18,7 @@ import {
   filterUserUploadedVideosByName,
 } from "../../slices/videoSlice";
 import { useLocation, useNavigate } from "react-router-dom";
-import AddVideo from "../youtubeStudio/AddVideo";
+import AddVideo from "../youtubeStudio/ContentSection/AddVideo";
 import { toggleSidebar, toggleStudioSidebar } from "../../slices/sidebarSlice";
 import MenuButton from "./NavComponents/MenuButton";
 import SearchBar from "./NavComponents/SearchBar";

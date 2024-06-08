@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { ChannelCategoryItems } from "../../static/Data";
+import { ChannelCategoryItems } from "../../../static/Data";
 import VideoTable from "./VideoTable";
 import { useSelector } from "react-redux";
-import SignInComponent from "../helper/SignInComponent";
+import SignInComponent from "../../helper/SignInComponent";
 
 const ContentComponent = () => {
   const { user } = useSelector((state) => state.userInfo);
