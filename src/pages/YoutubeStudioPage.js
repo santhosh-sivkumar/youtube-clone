@@ -6,7 +6,7 @@ import { getUser } from "../slices/userSlice";
 import SignInComponent from "../components/helper/SignInComponent";
 import { selectSidebarState } from "../slices/sidebarSlice";
 
-const YoutubeStudio = () => {
+const YoutubeStudioPage = () => {
   const [activeInStudioSidebar, setActiveInStudioSidebar] = useState("Content");
   const user = useSelector(getUser);
   const handleStudioSidebarClick = (category) => {
@@ -59,4 +59,4 @@ const YoutubeStudio = () => {
   );
 };
 
-export default YoutubeStudio;
+export default YoutubeStudioPage;

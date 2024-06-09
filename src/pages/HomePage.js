@@ -8,7 +8,7 @@ import { setUser } from "../slices/userSlice";
 import { fetchVideos } from "../slices/videoSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import VideoSection from "../components/Home/VideoSection";
-import HorizontalBar from "../components/video/HorizontalBar";
+import HorizontalBar from "../components/video/HorizontalFilterBar";
 
 const Home = () => {
   const dispatch = useDispatch();

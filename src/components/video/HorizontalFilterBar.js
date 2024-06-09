@@ -3,7 +3,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { filterByCategory, setVideos } from "../../slices/videoSlice";
 
-const HorizontalBar = ({ CategoryItems }) => {
+const HorizontalFilterBar = ({ CategoryItems }) => {
   const containerRef = useRef(null);
   const dispatch = useDispatch();
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -97,4 +97,4 @@ const HorizontalBar = ({ CategoryItems }) => {
   );
 };
 
-export default HorizontalBar;
+export default HorizontalFilterBar;
