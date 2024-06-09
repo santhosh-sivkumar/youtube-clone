@@ -22,7 +22,12 @@ export const formFieldsStep1 = [
       "Fashion & Beauty",
     ],
   },
-  { name: "link", label: "Video link", placeholder: "Enter video link" },
+  {
+    name: "link",
+    label: "Video link",
+    placeholder:
+      'Example: "https://www.youtube.com/watch?v=vA86QFrXoho" then "vA86QFrXoho"',
+  },
   {
     name: "thumbnail",
     label: "Thumbnail",
@@ -40,17 +45,17 @@ export const formFieldsStep2 = [
   {
     name: "subscribers",
     label: "Subscribers",
-    placeholder: "Enter number of subscribers",
+    placeholder: "Example: 12M",
   },
   {
     name: "duration",
     label: "Duration",
-    placeholder: "Enter video duration",
+    placeholder: "Example: 05:36",
   },
   {
     name: "uploadTime",
     label: "Upload Time",
-    placeholder: "Enter upload time",
+    placeholder: "Example: 2 months ago",
   },
-  { name: "views", label: "Views", placeholder: "Enter number of views" },
+  { name: "views", label: "Views", placeholder: "Example: 125K" },
 ];

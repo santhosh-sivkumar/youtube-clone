@@ -32,7 +32,7 @@ const ContentComponent = () => {
       <div className="h-[83%]">
         {activeInTopbar === "Videos" ? (
           user ? (
-            <VideoTable errorMsg={"No videos found"} />
+            <VideoTable errorMsg={"You haven't published a video."} />
           ) : (
             <div className="flex items-center justify-center h-full ">
               <SignInComponent
