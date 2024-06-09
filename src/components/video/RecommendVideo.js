@@ -14,10 +14,10 @@ const RecommendVideo = ({
   const { pathname } = useLocation();
   const isStudio = pathname === "/YoutubeStudio";
   const { isOpen } = useSelector((state) => state.sidebar);
-
-  const thumbnailClasses = `transition-all duration-700 ease-in-out w-[100%] ${
+  const thumbnailClasses = `transition-all ease-in-out duration-700 w-[100%] ${
     isStudio ? "w-[30%] h-[5rem]" : "h-[13rem]"
-  } ${isOpen ? "lg:h-[5.5rem]" : ""} 
+  } ${isOpen ? "lg:h-[7.5rem]" : ""}
+
     md:h-[9.5rem] md:w-[30%] lg:w-[50%] lg:h-[6.5rem] rounded-[13px] lg:rounded-[10px] p-1`;
   const logoClasses = `h-[3rem] md:hidden rounded-full p-1 ${
     isStudio ? "hidden" : ""
@@ -28,7 +28,7 @@ const RecommendVideo = ({
   const contentClasses = `p-2 lg:pt-0 flex gap-2 ${isStudio ? "pt-0" : ""}`;
 
   const getName = () => {
-    const maxLength = isStudio ? 45 : isOpen ? 10 : 60;
+    const maxLength = isStudio ? 45 : 60;
     return name.length <= maxLength ? name : `${name.substr(0, maxLength)}...`;
   };
 
@@ -41,14 +41,11 @@ const RecommendVideo = ({
           <h2 className="font-medium text-[#fff] md:text-md lg:text-sm mt-0 mb-0 items-center">
             <p className="block md:hidden lg:block">{getName()}</p>
             <p className="hidden md:block lg:hidden">
-              {name.length <= 50 ? name : `${name.substr(0, 100)}...`}
+              {name.length <= 50 ? name : `${name.substr(0, 80)}...`}
             </p>
           </h2>
           <div className="flex md:block items-center">
-            <h3
-              className={`text-[#909090] font-medium text-xs md:text-sm mt-1 md:mt-0 flex items-center justify-start
-                ${isOpen ? "md:text-xs" : ""} `}
-            >
+            <h3 className="text-[#909090] font-medium text-xs md:text-sm mt-1 md:mt-0 flex items-center">
               {channel}
               <span className="p-1 hidden md:block">
                 <MdVerified />
