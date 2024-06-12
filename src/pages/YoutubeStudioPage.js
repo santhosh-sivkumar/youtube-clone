@@ -30,13 +30,13 @@ const YoutubeStudioPage = () => {
         handleStudioSidebarClick={handleStudioSidebarClick}
       />{" "}
       <div
-        className={`absolute transition-all duration-700 ease-in-out 
+        className={` h-full pt-4 md:pt-0 lg:pt-4 absolute transition-all duration-700 ease-in-out 
           ${
             sidebarState.isStudioSidebarOpen
               ? "w-full left-0 lg:ml-1/5 lg:md:w-[85%] lg:md:left-[15%] md:ml-0 sm:w-full sm:ml-0"
               : "w-[96.3%] left-[5%]"
           }
-         h-full lg:max-1054:left-[1.7%]`}
+         lg:max-1054:left-[1.7%]`}
       >
         {/* TITLE */}
         <div className="flex px-6 h-[7%] items-end my-0 md:mb-4 md:mt-8 lg:my-0 justify-between">

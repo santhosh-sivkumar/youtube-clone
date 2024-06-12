@@ -29,7 +29,7 @@ const ContentComponent = () => {
           </p>
         ))}
       </div>
-      <div className="h-[83%]">
+      <div className="h-[83%] bg-[#282828]">
         {activeInTopbar === "Videos" ? (
           user ? (
             <VideoTable errorMsg={"You haven't published a video."} />
